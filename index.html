@@ -17,10 +17,10 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#0f1f15',   /* Xanh đen rất đậm (Deep Forest) */
-                            green: '#2F5233',  /* Xanh chủ đạo */
-                            gold: '#C5A059',   /* Vàng hoàng gia */
-                            light: '#F9F9F7',  /* Kem nhạt (Warm White) */
+                            dark: '#0f1f15',
+                            green: '#2F5233',
+                            gold: '#C5A059',
+                            light: '#F9F9F7',
                             accent: '#D9534F'
                         }
                     },
@@ -28,9 +28,6 @@
                         serif: ['"Playfair Display"', 'serif'],
                         sans: ['"Montserrat"', 'sans-serif'],
                         signature: ['"Great Vibes"', 'cursive'],
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                     }
                 }
             }
@@ -39,43 +36,32 @@
     <style>
         html { scroll-behavior: smooth; }
         
+        /* Mobile Menu Animation */
+        #mobile-menu { transition: transform 0.3s ease-in-out; }
+        .menu-closed { transform: translateX(100%); }
+        .menu-open { transform: translateX(0); }
+
         /* Animations */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .reveal { animation: fadeUp 1s ease-out forwards; }
-        .reveal-delay-1 { animation: fadeUp 1s ease-out 0.2s forwards; opacity: 0; }
-        .reveal-delay-2 { animation: fadeUp 1s ease-out 0.4s forwards; opacity: 0; }
         
-        /* Slider optimized */
+        /* Slider optimized for Mobile & Desktop */
         .slider-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background-size: cover; background-position: center; 
+            background-size: cover; background-position: center; /* Quan trọng: Căn giữa ảnh */
             opacity: 0; transition: opacity 1.5s ease-in-out; 
         }
-        .slide.active { 
-            opacity: 1; 
-            animation: zoomEffect 8s linear forwards; 
-        }
-        @keyframes zoomEffect {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); } /* Zoom nhẹ hơn để không bị vỡ ảnh */
-        }
+        .slide.active { opacity: 1; animation: zoomEffect 10s linear forwards; }
+        @keyframes zoomEffect { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
         
-        /* Overlay Gradient for Text readability */
-        .hero-overlay {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(15,31,21,0.6) 100%);
-        }
-
-        /* Glass Panel */
+        .hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(15,31,21,0.8) 100%); }
         .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
-        
-        /* Hover Effects */
         .card-hover { transition: all 0.4s ease; }
         .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(47, 82, 51, 0.15); border-color: #C5A059; }
-
         .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #C5A059; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px;}
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
@@ -84,220 +70,215 @@
 
     <!-- NAVIGATION -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 border-b border-brand-green/5">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3 group">
-                <!-- Logo Mark -->
-                <div class="relative w-10 h-10 flex items-center justify-center">
+        <div class="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2 md:gap-3 group z-50 relative">
+                <div class="relative w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
                     <div class="absolute inset-0 bg-brand-green transform rotate-45 rounded-sm group-hover:rotate-0 transition-transform duration-500"></div>
-                    <i class="fas fa-leaf text-white relative z-10 text-lg"></i>
+                    <i class="fas fa-leaf text-white relative z-10 text-sm md:text-lg"></i>
                 </div>
-                <!-- Logo Text -->
                 <div class="flex flex-col">
-                    <span class="font-serif font-bold text-xl text-brand-dark tracking-wide leading-none group-hover:text-brand-green transition-colors">ĐỖ HIẾU</span>
-                    <span class="text-[9px] font-sans font-bold text-brand-gold uppercase tracking-[0.25em] mt-1">Premium Herbal</span>
+                    <span class="font-serif font-bold text-lg md:text-xl text-brand-dark tracking-wide leading-none">ĐỖ HIẾU</span>
+                    <span class="text-[8px] md:text-[9px] font-sans font-bold text-brand-gold uppercase tracking-[0.25em] mt-1">Premium Herbal</span>
                 </div>
             </a>
             
-            <div class="flex items-center gap-8">
-                <div class="hidden md:flex gap-8 font-medium text-xs uppercase tracking-[0.15em] text-gray-500">
-                    <a href="#about" class="hover:text-brand-green transition-colors py-2 border-b-2 border-transparent hover:border-brand-gold" data-key="menu_about">Giới thiệu</a>
-                    <a href="#benefits" class="hover:text-brand-green transition-colors py-2 border-b-2 border-transparent hover:border-brand-gold" data-key="menu_benefits">Công dụng</a>
-                    <a href="#order" class="text-brand-green font-bold border border-brand-green px-5 py-2 hover:bg-brand-green hover:text-white transition-all" data-key="menu_order">Đặt hàng</a>
-                </div>
-                
-                <button onclick="toggleLanguage()" class="text-gray-400 hover:text-brand-gold transition text-lg flex items-center gap-1">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium text-xs uppercase tracking-[0.15em] text-gray-500">
+                <a href="#about" class="hover:text-brand-green transition-colors py-2" data-key="menu_about">Giới thiệu</a>
+                <a href="#benefits" class="hover:text-brand-green transition-colors py-2" data-key="menu_benefits">Công dụng</a>
+                <a href="#order" class="text-brand-green font-bold border border-brand-green px-5 py-2 hover:bg-brand-green hover:text-white transition-all" data-key="menu_order">Đặt hàng</a>
+                <button onclick="toggleLanguage()" class="text-gray-400 hover:text-brand-gold transition text-lg ml-2">
                     <span id="current-lang-display" class="text-xs font-bold text-brand-dark">VN</span>
                 </button>
             </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center gap-4 md:hidden z-50 relative">
+                <button onclick="toggleLanguage()" class="text-brand-dark font-bold text-xs border border-gray-300 px-2 py-1 rounded">VN/EN</button>
+                <button onclick="toggleMobileMenu()" class="text-brand-green text-2xl focus:outline-none">
+                    <i id="mobile-icon" class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center gap-8 menu-closed md:hidden h-screen w-screen">
+            <a href="#about" onclick="toggleMobileMenu()" class="text-2xl font-serif text-brand-dark hover:text-brand-gold">Giới thiệu</a>
+            <a href="#benefits" onclick="toggleMobileMenu()" class="text-2xl font-serif text-brand-dark hover:text-brand-gold">Công dụng</a>
+            <a href="#location" onclick="toggleMobileMenu()" class="text-2xl font-serif text-brand-dark hover:text-brand-gold">Địa chỉ</a>
+            <a href="#order" onclick="toggleMobileMenu()" class="text-xl font-bold text-white bg-brand-gold px-8 py-3 rounded-full shadow-lg">Đặt Hàng Ngay</a>
         </div>
     </nav>
 
-    <!-- HERO SECTION (FIXED & PREMIUM) -->
-    <!-- Sử dụng h-[85vh] để không quá to, min-h-[600px] để không quá nhỏ trên mobile -->
-    <header class="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-dark">
+    <!-- HERO SECTION -->
+    <header class="relative h-[100vh] md:h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-dark">
         <div class="slider-container">
-            <!-- Ảnh chất lượng cao hơn, tông màu trầm hơn -->
-            <div class="slide active" style="background-image: url('https://cdn.tgdd.vn//News/1538509//cay-nhan-tran-co-tac-dung-gi-12-cong-dung-va-cac-2-800x450.jpg');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=2070&auto=format&fit=crop');"></div>
-            <div class="slide" style="background-image: url('https://cdn.tgdd.vn//News/1538509//cay-nhan-tran-co-tac-dung-gi-12-cong-dung-va-cac-4-800x450-2.jpg');"></div>
+            <!-- Ảnh 1: Vùng núi (Unsplash) -->
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=2070&auto=format&fit=crop');"></div>
+            
+            <!-- Ảnh 2: ẢNH KHÁCH CUNG CẤP (Đã xử lý cho Mobile) -->
+            <div class="slide" style="
+                background-image: linear-gradient(rgba(0,0,0,0.3), rgba(15,31,21,0.7)), url('https://nhatnamyvien.org/wp-content/uploads/2024/06/nhan-tran-thumb.jpg'); 
+                background-position: center center; 
+                filter: contrast(1.1) saturate(1.1);
+            "></div>
+            
+            <!-- Ảnh 3: Ly trà (Unsplash) -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=2070&auto=format&fit=crop');"></div>
         </div>
 
-        <!-- Overlay Gradient -->
         <div class="absolute inset-0 hero-overlay z-10"></div>
 
-        <div class="relative z-20 text-center text-white px-4 max-w-5xl mx-auto mt-10">
+        <div class="relative z-20 text-center text-white px-4 max-w-5xl mx-auto mt-0 md:mt-10">
             <div class="reveal">
-                <div class="flex items-center justify-center gap-4 mb-6 opacity-80">
-                    <span class="h-[1px] w-12 bg-brand-gold"></span>
-                    <span class="text-brand-gold font-sans font-bold tracking-[0.3em] uppercase text-xs md:text-sm" data-key="hero_subtitle">Tinh hoa núi rừng Hòa Bình</span>
-                    <span class="h-[1px] w-12 bg-brand-gold"></span>
+                <div class="flex items-center justify-center gap-4 mb-4 md:mb-6 opacity-80">
+                    <span class="h-[1px] w-8 md:w-12 bg-brand-gold"></span>
+                    <span class="text-brand-gold font-sans font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-[10px] md:text-sm" data-key="hero_subtitle">Tinh hoa núi rừng Hòa Bình</span>
+                    <span class="h-[1px] w-8 md:w-12 bg-brand-gold"></span>
                 </div>
                 
-                <h2 class="font-serif text-5xl md:text-7xl lg:text-8xl font-medium mb-8 leading-tight tracking-tight" data-key="hero_title">
-                    Vị Ngọt <span class="text-brand-gold italic font-serif">Thanh Tao</span>
+                <h2 class="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium mb-6 md:mb-8 leading-tight tracking-tight" data-key="hero_title">
+                    Vị Ngọt <br class="block md:hidden"> <span class="text-brand-gold italic font-serif">Thanh Tao</span>
                 </h2>
                 
-                <p class="text-gray-200 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed mb-12 reveal-delay-1" data-key="hero_desc">
-                    Thức uống giải nhiệt thượng hạng từ những búp nhân trần được tuyển chọn khắt khe nhất. Đậm đà hương vị truyền thống, nâng tầm sức khỏe hiện đại.
+                <p class="text-gray-200 text-sm md:text-xl font-light max-w-xs md:max-w-2xl mx-auto leading-relaxed mb-8 md:mb-12" data-key="hero_desc">
+                    Thức uống giải nhiệt thượng hạng từ những búp nhân trần được tuyển chọn khắt khe nhất.
                 </p>
                 
-                <div class="flex flex-col sm:flex-row gap-5 justify-center items-center reveal-delay-2">
-                    <a href="#order" class="px-10 py-4 bg-brand-gold text-brand-dark font-bold uppercase text-xs tracking-[0.2em] hover:bg-white transition-colors duration-300 shadow-[0_0_20px_rgba(197,160,89,0.3)]">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#order" class="w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 bg-brand-gold text-brand-dark font-bold uppercase text-xs tracking-[0.2em] hover:bg-white transition-colors duration-300 shadow-[0_0_20px_rgba(197,160,89,0.3)]">
                         <span data-key="btn_buy_now">Đặt mua ngay</span>
                     </a>
-                    <a href="#about" class="px-10 py-4 border border-white/30 text-white font-bold uppercase text-xs tracking-[0.2em] hover:bg-white hover:text-brand-dark transition-colors duration-300 backdrop-blur-sm">
+                    <a href="#about" class="w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 border border-white/30 text-white font-bold uppercase text-xs tracking-[0.2em] hover:bg-white hover:text-brand-dark transition-colors duration-300 backdrop-blur-sm">
                         <span data-key="btn_location">Khám phá</span>
                     </a>
                 </div>
             </div>
         </div>
-        
-        <!-- Scroll Mouse Animation -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 hidden md:block animate-bounce opacity-50">
-            <div class="w-[1px] h-12 bg-gradient-to-b from-transparent via-white to-transparent"></div>
-        </div>
     </header>
 
-    <!-- ABOUT SECTION (PREMIUM LAYOUT) -->
-    <section id="about" class="py-32 container mx-auto px-6 relative bg-white">
-        <!-- Decor Text Background -->
-        <div class="absolute top-20 left-10 text-[200px] font-serif font-bold text-gray-50 opacity-[0.03] select-none pointer-events-none leading-none z-0">
-            Story
-        </div>
-
-        <div class="flex flex-col lg:flex-row items-center gap-20 relative z-10">
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-16 md:py-32 container mx-auto px-4 md:px-6 relative bg-white">
+        <div class="flex flex-col lg:flex-row items-center gap-10 md:gap-20 relative z-10">
             <!-- Image Side -->
-            <div class="lg:w-1/2 relative">
-                <div class="relative z-10 overflow-hidden">
-                    <img src="https://cdn.tienphong.vn/images/a6bf4f60924201126af6849ca45a398000817fa5dd6fb0c23f843852a5fadf4d81bff602011eeca9ff4a02c35174413fe7a62130a4892dc41dc87675cb0bb8ddd3b5b0f1bf3656a77fd74c934d494963f98d0d2f59ca7b91042f898c4315bb639f2dc8ef4bc9ed9e98d1ac7e1af6a294/uong-tra-nhan-tran-co-tac-dung-gi-5-e1624957463630-7035.jpg" alt="Tea Culture" class="w-full h-[600px] object-cover grayscale hover:grayscale-0 transition duration-700 ease-in-out">
+            <div class="lg:w-1/2 relative w-full">
+                <div class="relative z-10 overflow-hidden rounded-lg md:rounded-none">
+                    <img src="https://cdn.tienphong.vn/images/a6bf4f60924201126af6849ca45a398000817fa5dd6fb0c23f843852a5fadf4d81bff602011eeca9ff4a02c35174413fe7a62130a4892dc41dc87675cb0bb8ddd3b5b0f1bf3656a77fd74c934d494963f98d0d2f59ca7b91042f898c4315bb639f2dc8ef4bc9ed9e98d1ac7e1af6a294/uong-tra-nhan-tran-co-tac-dung-gi-5-e1624957463630-7035.jpg" alt="Tea Culture" class="w-full h-[300px] md:h-[600px] object-cover">
                 </div>
-                <!-- Decorative Gold Frame -->
-                <div class="absolute -bottom-6 -right-6 w-full h-full border border-brand-gold/40 -z-0 hidden md:block"></div>
-                <!-- Float Badge -->
-                <div class="absolute bottom-10 -left-6 bg-brand-dark text-white p-6 shadow-2xl max-w-[200px] hidden md:block">
-                    <p class="font-serif italic text-2xl text-brand-gold mb-1">100%</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-400">Thảo mộc tự nhiên từ vùng núi cao</p>
+                <div class="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-full h-full border border-brand-gold/40 -z-0 hidden md:block"></div>
+                <div class="absolute bottom-4 md:bottom-10 -left-2 md:-left-6 bg-brand-dark text-white p-4 md:p-6 shadow-2xl max-w-[150px] md:max-w-[200px] hidden sm:block">
+                    <p class="font-serif italic text-xl md:text-2xl text-brand-gold mb-1">100%</p>
+                    <p class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400">Thảo mộc tự nhiên</p>
                 </div>
             </div>
             
             <!-- Content Side -->
             <div class="lg:w-1/2">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="flex items-center gap-4 mb-4 md:mb-6">
                     <span class="w-8 h-[1px] bg-brand-green"></span>
                     <span class="text-brand-green font-bold uppercase tracking-widest text-xs">Di Sản Thương Hiệu</span>
                 </div>
                 
-                <h2 class="font-serif text-5xl text-brand-dark mb-8 leading-tight" data-key="about_title">
+                <h2 class="font-serif text-3xl md:text-5xl text-brand-dark mb-6 md:mb-8 leading-tight" data-key="about_title">
                     Nhân Trần <br>
                     <span class="text-brand-gold">Đỗ Hiếu</span>
                 </h2>
                 
-                <p class="text-gray-500 mb-6 text-lg font-light leading-relaxed text-justify" data-key="about_p1">
-                    Khởi nguồn từ vùng đất <strong class="text-brand-dark font-medium">Tân Lạc - Hòa Bình</strong>, nơi được thiên nhiên ưu đãi với khí hậu trong lành. Chúng tôi không chỉ tạo ra một thức uống, mà là sự kết tinh của văn hóa và sức khỏe.
+                <p class="text-gray-500 mb-6 text-sm md:text-lg font-light leading-relaxed text-justify" data-key="about_p1">
+                    Được canh tác tại vùng nguyên liệu sạch biệt lập tại Tân Lạc - Hòa Bình, Nhân Trần Đỗ Hiếu tự hào mang đến giải pháp thanh nhiệt hoàn toàn từ thiên nhiên. Chúng tôi kiểm soát nghiêm ngặt từ khâu chọn giống, thu hái đến quy trình phơi sấy khép kín, đảm bảo giữ lại tối đa dược tính quý giá. Đây không chỉ là thức uống, mà là lời cam kết vàng về một lối sống xanh, lành mạnh và cân bằng cho người Việt hiện đại.
                 </p>
                 
-                <p class="text-gray-500 mb-10 text-lg font-light leading-relaxed text-justify" data-key="about_p2">
-                    Mỗi gói nhân trần Đỗ Hiếu là kết quả của quy trình "Sao vàng hạ thổ" gia truyền, giữ trọn vẹn dược tính quý giá mà không cần bất kỳ chất bảo quản nào.
-                </p>
-
-                <div class="flex items-center gap-8 border-t border-gray-100 pt-8">
+                <div class="flex items-center gap-4 md:gap-8 border-t border-gray-100 pt-6 md:pt-8">
                     <div>
-                        <h4 class="font-serif text-3xl text-brand-dark">3+</h4>
-                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Đời gia truyền</p>
+                        <h4 class="font-serif text-2xl md:text-3xl text-brand-dark">3+</h4>
+                        <p class="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest mt-1">Đời gia truyền</p>
                     </div>
-                    <div class="w-[1px] h-10 bg-gray-200"></div>
+                    <div class="w-[1px] h-8 md:h-10 bg-gray-200"></div>
                     <div>
-                        <h4 class="font-serif text-3xl text-brand-dark">10k+</h4>
-                        <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Khách hàng tin dùng</p>
+                        <h4 class="font-serif text-2xl md:text-3xl text-brand-dark">10k+</h4>
+                        <p class="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest mt-1">Khách hàng</p>
                     </div>
                     <div class="ml-auto">
-                        <!-- Signature Font -->
-                        <span class="font-signature text-4xl text-brand-gold block transform -rotate-6">Đỗ Hiếu</span>
+                        <span class="font-signature text-3xl md:text-4xl text-brand-gold block transform -rotate-6">Đỗ Hiếu</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BENEFITS SECTION (MINIMALIST LUXURY) -->
-    <section id="benefits" class="py-32 bg-brand-light relative">
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20">
-                <div class="max-w-2xl">
-                    <span class="text-brand-gold font-bold uppercase tracking-widest text-xs mb-3 block" data-key="benefits_subtitle">Giá trị cốt lõi</span>
-                    <h2 class="font-serif text-4xl md:text-5xl text-brand-dark leading-tight" data-key="benefits_title">Công Dụng Tuyệt Vời <br>Từ Thiên Nhiên</h2>
-                </div>
-                <div class="hidden md:block pb-2">
-                    <a href="#order" class="text-brand-dark text-xs font-bold uppercase tracking-widest border-b border-brand-dark pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors">Đặt hàng ngay</a>
+    <!-- BENEFITS SECTION -->
+    <section id="benefits" class="py-16 md:py-32 bg-brand-light relative">
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-20">
+                <div class="max-w-2xl mb-6 md:mb-0">
+                    <span class="text-brand-gold font-bold uppercase tracking-widest text-xs mb-2 md:mb-3 block" data-key="benefits_subtitle">Giá trị cốt lõi</span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-brand-dark leading-tight" data-key="benefits_title">Công Dụng Tuyệt Vời <br>Từ Thiên Nhiên</h2>
                 </div>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Card 1 -->
-                <div class="bg-white p-10 border border-gray-100 card-hover group">
-                    <i class="fas fa-temperature-low text-4xl text-gray-300 group-hover:text-brand-gold transition-colors duration-300 mb-6"></i>
-                    <h3 class="font-serif text-2xl text-brand-dark mb-4 group-hover:translate-x-2 transition-transform duration-300" data-key="benefit_1_title">Thanh Nhiệt</h3>
-                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_1_desc">Giải pháp hoàn hảo cho những ngày hè oi bức. Làm mát gan, giảm nhiệt miệng và mụn nhọt hiệu quả.</p>
+                <div class="bg-white p-6 md:p-10 border border-gray-100 card-hover group">
+                    <i class="fas fa-temperature-low text-3xl md:text-4xl text-gray-300 group-hover:text-brand-gold transition-colors mb-4 md:mb-6"></i>
+                    <h3 class="font-serif text-xl md:text-2xl text-brand-dark mb-3 md:mb-4" data-key="benefit_1_title">Thanh Nhiệt</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_1_desc">Làm mát gan, giảm nóng trong người, nhiệt miệng, mụn nhọt hiệu quả.</p>
                 </div>
                 <!-- Card 2 -->
-                <div class="bg-white p-10 border border-gray-100 card-hover group">
-                    <i class="fas fa-heartbeat text-4xl text-gray-300 group-hover:text-brand-gold transition-colors duration-300 mb-6"></i>
-                    <h3 class="font-serif text-2xl text-brand-dark mb-4 group-hover:translate-x-2 transition-transform duration-300" data-key="benefit_2_title">Hỗ Trợ Gan Mật</h3>
-                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_2_desc">Kích thích tiết mật, bảo vệ tế bào gan, hỗ trợ tích cực trong việc điều trị vàng da và men gan cao.</p>
+                <div class="bg-white p-6 md:p-10 border border-gray-100 card-hover group">
+                    <i class="fas fa-heartbeat text-3xl md:text-4xl text-gray-300 group-hover:text-brand-gold transition-colors mb-4 md:mb-6"></i>
+                    <h3 class="font-serif text-xl md:text-2xl text-brand-dark mb-3 md:mb-4" data-key="benefit_2_title">Hỗ Trợ Gan Mật</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_2_desc">Kích thích tiết mật, bảo vệ tế bào gan, hỗ trợ điều trị vàng da.</p>
                 </div>
                 <!-- Card 3 -->
-                <div class="bg-white p-10 border border-gray-100 card-hover group">
-                    <i class="fas fa-moon text-4xl text-gray-300 group-hover:text-brand-gold transition-colors duration-300 mb-6"></i>
-                    <h3 class="font-serif text-2xl text-brand-dark mb-4 group-hover:translate-x-2 transition-transform duration-300" data-key="benefit_3_title">An Thần</h3>
-                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_3_desc">Hương thơm thảo mộc dịu nhẹ giúp thư giãn thần kinh, giảm căng thẳng và mang lại giấc ngủ sâu.</p>
+                <div class="bg-white p-6 md:p-10 border border-gray-100 card-hover group">
+                    <i class="fas fa-moon text-3xl md:text-4xl text-gray-300 group-hover:text-brand-gold transition-colors mb-4 md:mb-6"></i>
+                    <h3 class="font-serif text-xl md:text-2xl text-brand-dark mb-3 md:mb-4" data-key="benefit_3_title">An Thần</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_3_desc">Giúp thư giãn thần kinh, giảm căng thẳng và mang lại giấc ngủ sâu.</p>
                 </div>
                  <!-- Card 4 -->
-                 <div class="bg-white p-10 border border-gray-100 card-hover group">
-                    <i class="fas fa-baby-carriage text-4xl text-gray-300 group-hover:text-brand-gold transition-colors duration-300 mb-6"></i>
-                    <h3 class="font-serif text-2xl text-brand-dark mb-4 group-hover:translate-x-2 transition-transform duration-300" data-key="benefit_4_title">Phụ Nữ Sau Sinh</h3>
-                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_4_desc">Bài thuốc dân gian giúp phụ nữ sau sinh nhanh phục hồi sức khỏe, ăn ngon miệng hơn.</p>
+                 <div class="bg-white p-6 md:p-10 border border-gray-100 card-hover group">
+                    <i class="fas fa-baby-carriage text-3xl md:text-4xl text-gray-300 group-hover:text-brand-gold transition-colors mb-4 md:mb-6"></i>
+                    <h3 class="font-serif text-xl md:text-2xl text-brand-dark mb-3 md:mb-4" data-key="benefit_4_title">Phụ Nữ Sau Sinh</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_4_desc">Giúp phụ nữ sau sinh nhanh phục hồi sức khỏe, ăn ngon miệng hơn.</p>
                 </div>
                 <!-- Card 5 -->
-                <div class="bg-white p-10 border border-gray-100 card-hover group">
-                    <i class="fas fa-shield-virus text-4xl text-gray-300 group-hover:text-brand-gold transition-colors duration-300 mb-6"></i>
-                    <h3 class="font-serif text-2xl text-brand-dark mb-4 group-hover:translate-x-2 transition-transform duration-300" data-key="benefit_5_title">Kháng Khuẩn</h3>
-                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_5_desc">Ức chế vi khuẩn có hại, hỗ trợ làm lành vết thương và tăng cường hệ miễn dịch tự nhiên.</p>
+                <div class="bg-white p-6 md:p-10 border border-gray-100 card-hover group">
+                    <i class="fas fa-shield-virus text-3xl md:text-4xl text-gray-300 group-hover:text-brand-gold transition-colors mb-4 md:mb-6"></i>
+                    <h3 class="font-serif text-xl md:text-2xl text-brand-dark mb-3 md:mb-4" data-key="benefit_5_title">Kháng Khuẩn</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_5_desc">Ức chế vi khuẩn có hại, hỗ trợ làm lành vết thương.</p>
                 </div>
                 <!-- Card 6 -->
-                <div class="bg-white p-10 border border-gray-100 card-hover group">
-                    <i class="fas fa-heart-pulse text-4xl text-gray-300 group-hover:text-brand-gold transition-colors duration-300 mb-6"></i>
-                    <h3 class="font-serif text-2xl text-brand-dark mb-4 group-hover:translate-x-2 transition-transform duration-300" data-key="benefit_6_title">Ổn Định Huyết Áp</h3>
-                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_6_desc">Hỗ trợ điều hòa huyết áp, là thức uống lành mạnh cho người có tiền sử huyết áp không ổn định.</p>
+                <div class="bg-white p-6 md:p-10 border border-gray-100 card-hover group">
+                    <i class="fas fa-heart-pulse text-3xl md:text-4xl text-gray-300 group-hover:text-brand-gold transition-colors mb-4 md:mb-6"></i>
+                    <h3 class="font-serif text-xl md:text-2xl text-brand-dark mb-3 md:mb-4" data-key="benefit_6_title">Ổn Định Huyết Áp</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_6_desc">Thức uống lành mạnh cho người có tiền sử huyết áp không ổn định.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ORDER SECTION (UNCHANGED) -->
-    <section id="order" class="py-24 container mx-auto px-6">
-        <div class="max-w-6xl mx-auto glass-panel shadow-2xl rounded-2xl overflow-hidden flex flex-col lg:flex-row">
-            <!-- Product Info (Visual Side) -->
-            <div class="lg:w-5/12 bg-brand-green text-white p-12 flex flex-col justify-between relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-                <div class="absolute bottom-0 left-0 w-48 h-48 bg-brand-gold/20 rounded-full blur-2xl transform -translate-x-1/3 translate-y-1/3"></div>
-
+    <!-- ORDER SECTION -->
+    <section id="order" class="py-16 md:py-24 container mx-auto px-4 md:px-6">
+        <div class="max-w-6xl mx-auto glass-panel shadow-2xl rounded-xl overflow-hidden flex flex-col lg:flex-row">
+            <!-- Product Info -->
+            <div class="lg:w-5/12 bg-brand-green text-white p-8 md:p-12 flex flex-col justify-between relative overflow-hidden">
                 <div class="relative z-10">
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span class="bg-brand-gold text-brand-dark text-xs font-extrabold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md">Best Seller</span>
-                        <span class="bg-white text-brand-accent text-xs font-extrabold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md animate-pulse">Hot Deal</span>
+                    <div class="flex flex-wrap gap-2 mb-4 md:mb-6">
+                        <span class="bg-brand-gold text-brand-dark text-[10px] font-extrabold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md">Best Seller</span>
+                        <span class="bg-white text-brand-accent text-[10px] font-extrabold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md animate-pulse">Hot Deal</span>
                     </div>
                     
-                    <h3 class="font-serif text-4xl font-bold mb-3" data-key="product_name">Gói Nhân Trần Đỗ Hiếu</h3>
-                    <p class="text-brand-light/80 mb-10 text-lg italic" data-key="product_desc">Nguyên chất, thơm ngon, đậm đà vị quê.</p>
+                    <h3 class="font-serif text-3xl md:text-4xl font-bold mb-2 md:mb-3" data-key="product_name">Gói Nhân Trần Đỗ Hiếu</h3>
+                    <p class="text-brand-light/80 mb-6 md:mb-10 text-sm md:text-lg italic" data-key="product_desc">Nguyên chất, thơm ngon, đậm đà vị quê.</p>
                     
-                    <div class="mb-8">
-                        <span class="text-6xl font-serif font-bold text-brand-gold">25.000<sup class="text-2xl text-white">đ</sup></span>
-                        <p class="text-sm opacity-70 mt-1 uppercase tracking-widest" data-key="price_unit">/ 1 gói (100g)</p>
+                    <div class="mb-6 md:mb-8">
+                        <span class="text-5xl md:text-6xl font-serif font-bold text-brand-gold">25.000<sup class="text-xl md:text-2xl text-white">đ</sup></span>
+                        <p class="text-xs md:text-sm opacity-70 mt-1 uppercase tracking-widest" data-key="price_unit">/ 1 gói (100g)</p>
                     </div>
 
-                    <div class="bg-white/10 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-                        <h4 class="font-bold text-brand-gold mb-4 uppercase text-xs tracking-[0.2em] border-b border-white/10 pb-2" data-key="discount_title">Ưu đãi số lượng lớn</h4>
-                        <ul class="space-y-3 text-sm font-medium">
+                    <div class="bg-white/10 p-4 md:p-6 rounded-xl border border-white/10 backdrop-blur-sm">
+                        <h4 class="font-bold text-brand-gold mb-3 md:mb-4 uppercase text-xs tracking-[0.2em] border-b border-white/10 pb-2" data-key="discount_title">Ưu đãi số lượng lớn</h4>
+                        <ul class="space-y-2 md:space-y-3 text-xs md:text-sm font-medium">
                             <li class="flex justify-between items-center">
                                 <span class="flex items-center gap-2"><i class="fas fa-check text-brand-gold text-xs"></i> Mua 10 gói</span> 
                                 <span class="bg-white/20 px-2 py-1 rounded text-white">-10.000đ</span>
@@ -312,181 +293,170 @@
             </div>
 
             <!-- Order Form -->
-            <div class="lg:w-7/12 p-12 bg-white relative">
-                <h3 class="text-3xl font-bold text-brand-dark mb-2 font-serif" data-key="form_title">Đặt Hàng Nhanh</h3>
-                <p class="text-gray-500 mb-8 text-sm">Điền thông tin bên dưới, chúng tôi sẽ liên hệ xác nhận ngay.</p>
+            <div class="lg:w-7/12 p-6 md:p-12 bg-white relative">
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-dark mb-2 font-serif" data-key="form_title">Đặt Hàng Nhanh</h3>
+                <p class="text-gray-500 mb-6 md:mb-8 text-xs md:text-sm">Điền thông tin bên dưới, chúng tôi sẽ liên hệ xác nhận ngay.</p>
                 
-                <form id="orderForm" onsubmit="event.preventDefault(); submitOrder();" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form id="orderForm" onsubmit="event.preventDefault(); submitOrder();" class="space-y-4 md:space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div class="relative group">
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2 tracking-wider" data-key="label_name">Họ và tên</label>
-                            <div class="relative">
-                                <i class="fas fa-user absolute left-4 top-3.5 text-gray-400 group-focus-within:text-brand-green transition-colors"></i>
-                                <input type="text" id="customerName" required class="w-full bg-gray-50 border border-gray-200 rounded-lg pl-10 pr-4 py-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all placeholder-gray-300" placeholder="Nguyễn Văn A">
-                            </div>
+                            <label class="block text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-1 md:mb-2 tracking-wider" data-key="label_name">Họ và tên</label>
+                            <input type="text" id="customerName" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:border-brand-green outline-none transition-all placeholder-gray-300" placeholder="Nguyễn Văn A">
                         </div>
                         <div class="relative group">
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2 tracking-wider" data-key="label_phone">Số điện thoại</label>
-                            <div class="relative">
-                                <i class="fas fa-phone absolute left-4 top-3.5 text-gray-400 group-focus-within:text-brand-green transition-colors"></i>
-                                <input type="tel" id="customerPhone" required class="w-full bg-gray-50 border border-gray-200 rounded-lg pl-10 pr-4 py-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all placeholder-gray-300" placeholder="09xxxxxxxxx">
-                            </div>
+                            <label class="block text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-1 md:mb-2 tracking-wider" data-key="label_phone">Số điện thoại</label>
+                            <input type="tel" id="customerPhone" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:border-brand-green outline-none transition-all placeholder-gray-300" placeholder="09xxxxxxxxx">
                         </div>
                     </div>
 
                     <div class="relative group">
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2 tracking-wider" data-key="label_address">Địa chỉ nhận hàng</label>
-                        <div class="relative">
-                            <i class="fas fa-map-marker-alt absolute left-4 top-3.5 text-gray-400 group-focus-within:text-brand-green transition-colors"></i>
-                            <input type="text" id="customerAddress" required class="w-full bg-gray-50 border border-gray-200 rounded-lg pl-10 pr-4 py-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all placeholder-gray-300" placeholder="Số nhà, đường, xã/phường, quận/huyện...">
-                        </div>
+                        <label class="block text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-1 md:mb-2 tracking-wider" data-key="label_address">Địa chỉ nhận hàng</label>
+                        <input type="text" id="customerAddress" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:border-brand-green outline-none transition-all placeholder-gray-300" placeholder="Số nhà, đường, xã/phường, quận/huyện...">
                     </div>
 
-                    <div class="bg-brand-light/50 p-6 rounded-xl border border-brand-green/10">
-                        <div class="flex items-center justify-between flex-wrap gap-6">
+                    <div class="bg-brand-light/50 p-4 md:p-6 rounded-xl border border-brand-green/10">
+                        <div class="flex items-center justify-between flex-wrap gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2 tracking-wider" data-key="label_quantity">Số lượng gói</label>
+                                <label class="block text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-2 tracking-wider" data-key="label_quantity">Số lượng gói</label>
                                 <div class="flex items-center gap-2">
-                                    <button type="button" onclick="changeQty(-1)" class="w-10 h-10 bg-white border border-gray-200 rounded-full hover:bg-brand-green hover:text-white hover:border-brand-green transition shadow-sm font-bold text-xl flex items-center justify-center">-</button>
-                                    <input type="number" id="quantity" value="1" min="1" onchange="updateTotal()" oninput="updateTotal()" class="w-16 text-center font-bold text-2xl bg-transparent border-none outline-none text-brand-dark p-0">
-                                    <button type="button" onclick="changeQty(1)" class="w-10 h-10 bg-white border border-gray-200 rounded-full hover:bg-brand-green hover:text-white hover:border-brand-green transition shadow-sm font-bold text-xl flex items-center justify-center">+</button>
+                                    <button type="button" onclick="changeQty(-1)" class="w-8 h-8 md:w-10 md:h-10 bg-white border border-gray-200 rounded-full hover:bg-brand-green hover:text-white transition shadow-sm font-bold text-lg flex items-center justify-center">-</button>
+                                    <input type="number" id="quantity" value="1" min="1" onchange="updateTotal()" oninput="updateTotal()" class="w-12 md:w-16 text-center font-bold text-xl md:text-2xl bg-transparent border-none outline-none text-brand-dark p-0">
+                                    <button type="button" onclick="changeQty(1)" class="w-8 h-8 md:w-10 md:h-10 bg-white border border-gray-200 rounded-full hover:bg-brand-green hover:text-white transition shadow-sm font-bold text-lg flex items-center justify-center">+</button>
                                 </div>
                             </div>
                             
                             <div class="text-right">
-                                <div id="discountRow" class="hidden text-sm text-brand-accent font-bold mb-1 animate-pulse">
+                                <div id="discountRow" class="hidden text-xs text-brand-accent font-bold mb-1 animate-pulse">
                                     Giảm giá: <span id="discountAmount">-0đ</span>
                                 </div>
-                                <span class="text-xs text-gray-500 block uppercase tracking-wider" data-key="label_total">Thành tiền</span>
-                                <span id="totalPrice" class="text-3xl font-serif font-bold text-brand-green">25.000đ</span>
+                                <span class="text-[10px] md:text-xs text-gray-500 block uppercase tracking-wider" data-key="label_total">Thành tiền</span>
+                                <span id="totalPrice" class="text-2xl md:text-3xl font-serif font-bold text-brand-green">25.000đ</span>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="w-full bg-brand-dark text-white font-bold py-4 rounded-lg shadow-xl hover:bg-brand-green hover:shadow-2xl transition-all duration-300 flex justify-center items-center gap-3 text-lg transform hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed group">
+                    <button type="submit" id="submitBtn" class="w-full bg-brand-dark text-white font-bold py-3 md:py-4 rounded-lg shadow-xl hover:bg-brand-green transition-all duration-300 flex justify-center items-center gap-3 text-base md:text-lg transform hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed group">
                         <span id="btnText" data-key="btn_submit">GỬI ĐƠN HÀNG NGAY</span> 
                         <i id="btnIcon" class="fas fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                    <p class="text-xs text-center text-gray-400">Cam kết bảo mật thông tin khách hàng.</p>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- LOCATION SECTION (UNCHANGED) -->
-    <section id="location" class="py-24 bg-white relative">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+    <!-- LOCATION SECTION -->
+    <section id="location" class="py-16 md:py-24 bg-white relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16">
                 <span class="text-brand-green font-bold tracking-widest uppercase text-xs mb-2 block">Bản Đồ</span>
-                <h2 class="font-serif text-4xl text-brand-dark font-bold" data-key="location_title">Ghé Thăm Chúng Tôi</h2>
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-dark font-bold" data-key="location_title">Ghé Thăm Chúng Tôi</h2>
             </div>
             
-            <div class="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+            <div class="relative w-full h-[300px] md:h-[500px] rounded-xl overflow-hidden shadow-xl border-4 border-white">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3731.439815024342!2d105.2257996153723!3d20.624068586221464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31340f1dce532d0b%3A0xb61fc4224882daed!2zTmjDom4gVHLhuqduIELDoCBIaeG6v3U!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s" 
                     width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
                 </iframe>
-                <div class="absolute bottom-6 left-6 bg-white p-6 rounded-xl shadow-2xl max-w-sm hidden md:block border-l-4 border-brand-green hover-lift">
-                    <h4 class="font-bold text-lg text-brand-dark mb-1">Nhân Trần Đỗ Hiếu</h4>
-                    <p class="text-sm text-gray-600 mb-3"><i class="fas fa-map-pin mr-2 text-brand-gold"></i> Phong Phú, Tân Lạc, Hòa Bình</p>
-                    <a href="https://www.google.com/maps/dir//Nh%C3%A2n+Tr%E1%BA%A7n+B%C3%A0+Hi%E1%BA%BFu,+Phong+Ph%C3%BA,+T%C3%A2n+L%E1%BA%A1c,+H%C3%B2a+B%C3%ACnh,+Vi%E1%BB%87t+Nam/@21.020672,105.8177024,4980m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x31340f1dce532d0b:0xb61fc4224882daed!2m2!1d105.2279883!2d20.6240686" target="_blank" class="inline-flex items-center text-brand-green text-sm font-bold hover:text-brand-gold transition-colors">
-                        Chỉ đường ngay <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER SECTION (UNCHANGED) -->
-    <footer id="contact" class="bg-brand-dark text-white pt-20 border-t-8 border-brand-gold relative overflow-hidden">
+    <!-- FOOTER SECTION (RESTORED FULL VERSION) -->
+    <footer id="contact" class="bg-brand-dark text-white pt-16 md:pt-20 border-t-8 border-brand-gold relative overflow-hidden">
         <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10"></div>
         
         <div class="container mx-auto px-6 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                <!-- Brand Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
+                <!-- 1. Brand Info -->
                 <div class="lg:col-span-1">
-                    <h4 class="font-serif text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <h4 class="font-serif text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6 flex items-center gap-3">
                         <i class="fas fa-leaf text-brand-gold"></i> ĐỖ HIẾU
                     </h4>
                     <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                        Đặc sản vùng cao Hòa Bình. Chúng tôi tâm huyết mang đến những sản phẩm thảo mộc sạch, giữ trọn hương vị truyền thống và giá trị sức khỏe cho cộng đồng.
+                        Đặc sản vùng cao Hòa Bình. Chúng tôi tâm huyết mang đến những sản phẩm thảo mộc sạch, giữ trọn hương vị truyền thống.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
 
-                <!-- Quick Links -->
+                <!-- 2. Quick Links (RESTORED) -->
                 <div>
-                    <h4 class="font-bold text-white mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Khám Phá</h4>
+                    <h4 class="font-bold text-white mb-4 md:mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Khám Phá</h4>
                     <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#about" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Câu chuyện thương hiệu</a></li>
-                        <li><a href="#benefits" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Công dụng sản phẩm</a></li>
-                        <li><a href="#order" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Đặt hàng ngay</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Chính sách đại lý</a></li>
+                        <li><a href="#about" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Câu chuyện</a></li>
+                        <li><a href="#benefits" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Công dụng</a></li>
+                        <li><a href="#order" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Đặt hàng</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Chính sách</a></li>
                     </ul>
                 </div>
 
-                <!-- Contact Info -->
+                <!-- 3. Contact Info -->
                 <div>
-                    <h4 class="font-bold text-white mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Liên Hệ</h4>
-                    <ul class="space-y-4 text-sm text-gray-400">
+                    <h4 class="font-bold text-white mb-4 md:mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Liên Hệ</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
                         <li class="flex items-start gap-3">
                             <i class="fas fa-map-marker-alt mt-1 text-brand-gold"></i>
-                            <span>Phong Phú, Tân Lạc, Hòa Bình,<br>Việt Nam</span>
+                            <span>Phong Phú, Tân Lạc, Hòa Bình</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-phone-alt text-brand-gold"></i>
-                            <a href="tel:09xxxxxxxxx" class="hover:text-white transition">09xx.xxx.xxx</a>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fas fa-envelope text-brand-gold"></i>
-                            <a href="mailto:nhantrandohieu@gmail.com" class="hover:text-white transition">nhantrandohieu@gmail.com</a>
+                            <a href="tel:09xxxxxxxxx">09xx.xxx.xxx</a>
                         </li>
                     </ul>
                 </div>
-                
-                <!-- Newsletter (Visual Only) -->
+
+                <!-- 4. Newsletter (RESTORED) -->
                 <div>
-                    <h4 class="font-bold text-white mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Đăng Ký Nhận Tin</h4>
+                    <h4 class="font-bold text-white mb-4 md:mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Đăng Ký</h4>
                     <p class="text-xs text-gray-400 mb-4">Nhận thông tin ưu đãi và kiến thức sức khỏe mới nhất.</p>
                     <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký!');">
                         <input type="email" placeholder="Email của bạn..." class="bg-white/5 border border-white/10 rounded px-4 py-3 text-sm text-white focus:border-brand-gold outline-none transition">
-                        <button class="bg-brand-gold text-brand-dark font-bold py-2 rounded hover:bg-white transition uppercase text-xs tracking-wider">Đăng Ký</button>
+                        <button class="bg-brand-gold text-brand-dark font-bold py-2 rounded hover:bg-white transition uppercase text-xs tracking-wider">Gửi</button>
                     </form>
                 </div>
             </div>
         </div>
         
-        <div class="border-t border-white/10 bg-black/20 pt-6 pb-6 mt-8 relative z-10">
-            <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-xs">© 2025 Nhân Trần Đỗ Hiếu. All Rights Reserved.</p>
-                <div class="flex gap-6 text-xs text-gray-500">
-                    <a href="#" class="hover:text-white transition">Điều khoản</a>
-                    <a href="#" class="hover:text-white transition">Bảo mật</a>
-                    <a href="#" class="hover:text-white transition">Sitemap</a>
-                </div>
-            </div>
+        <div class="border-t border-white/10 bg-black/20 pt-6 pb-6 mt-8 relative z-10 text-center text-xs text-gray-500">
+            <p>© 2024 Nhân Trần Đỗ Hiếu.</p>
         </div>
     </footer>
 
-    <!-- SUCCESS MODAL (UNCHANGED) -->
+    <!-- SUCCESS MODAL -->
     <div id="successModal" class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal()"></div>
-        <div class="bg-white rounded-2xl shadow-2xl p-10 max-w-sm w-full relative z-10 animate-fade-in-up text-center border-t-8 border-brand-gold">
-            <div class="w-24 h-24 bg-brand-light rounded-full flex items-center justify-center text-5xl mx-auto mb-6 text-brand-green shadow-inner">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full relative z-10 animate-fade-in-up text-center border-t-8 border-brand-gold">
+            <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center text-4xl mx-auto mb-6 text-brand-green shadow-inner">
                 <i class="fas fa-check"></i>
             </div>
-            <h3 class="text-2xl font-serif font-bold text-brand-dark mb-2">Đặt Hàng Thành Công!</h3>
-            <p class="text-gray-600 mb-8 text-sm leading-relaxed">Cảm ơn <span id="successName" class="font-bold text-brand-green">Khách hàng</span> đã tin tưởng.<br>Chúng tôi sẽ liên hệ lại sớm nhất.</p>
-            <button onclick="closeModal()" class="w-full bg-brand-green text-white font-bold py-3 rounded-lg hover:bg-brand-dark transition shadow-lg transform hover:-translate-y-1">Tuyệt vời</button>
+            <h3 class="text-xl font-serif font-bold text-brand-dark mb-2">Đặt Hàng Thành Công!</h3>
+            <p class="text-gray-600 mb-6 text-sm">Cảm ơn <span id="successName" class="font-bold text-brand-green">Khách hàng</span>.<br>Chúng tôi sẽ liên hệ sớm nhất.</p>
+            <button onclick="closeModal()" class="w-full bg-brand-green text-white font-bold py-3 rounded-lg hover:bg-brand-dark transition">Tuyệt vời</button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC (UNCHANGED) -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
+        // MOBILE MENU TOGGLE
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-icon');
+            
+            if (menu.classList.contains('menu-closed')) {
+                menu.classList.remove('menu-closed');
+                menu.classList.add('menu-open');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                menu.classList.add('menu-closed');
+                menu.classList.remove('menu-open');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
         // SLIDER
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
@@ -501,16 +471,16 @@
         const translations = {
             vi: {
                 menu_about: "Giới thiệu", menu_benefits: "Công dụng", menu_order: "Đặt hàng", menu_location: "Địa chỉ",
-                hero_subtitle: "Tinh hoa núi rừng Hòa Bình", hero_title: "Vị Ngọt <span class='text-brand-gold italic font-serif'>Thanh Tao</span>",
-                hero_desc: "Thức uống giải nhiệt thượng hạng từ những búp nhân trần được tuyển chọn khắt khe nhất. Đậm đà hương vị truyền thống, nâng tầm sức khỏe hiện đại.",
+                hero_subtitle: "Tinh hoa núi rừng Hòa Bình", hero_title: "Vị Ngọt <br class='block md:hidden'> <span class='text-brand-gold italic font-serif'>Thanh Tao</span>",
+                hero_desc: "Thức uống giải nhiệt thượng hạng từ những búp nhân trần được tuyển chọn khắt khe nhất.",
                 btn_buy_now: "Đặt mua ngay", btn_location: "Khám phá", about_title: "Nhân Trần <br><span class='text-brand-gold'>Đỗ Hiếu</span>",
-                feature_1: "Chuẩn Sạch", feature_2: "Tâm Huyết", benefits_title: "Công Dụng Tuyệt Vời <br>Từ Thiên Nhiên", benefits_subtitle: "Giá trị cốt lõi",
-                benefit_1_title: "Thanh Nhiệt", benefit_1_desc: "Giải pháp hoàn hảo cho những ngày hè oi bức. Làm mát gan, giảm nhiệt miệng và mụn nhọt hiệu quả.",
-                benefit_2_title: "Hỗ Trợ Gan Mật", benefit_2_desc: "Kích thích tiết mật, bảo vệ tế bào gan, hỗ trợ tích cực trong việc điều trị vàng da và men gan cao.",
-                benefit_3_title: "An Thần", benefit_3_desc: "Hương thơm thảo mộc dịu nhẹ giúp thư giãn thần kinh, giảm căng thẳng và mang lại giấc ngủ sâu.",
-                benefit_4_title: "Phụ Nữ Sau Sinh", benefit_4_desc: "Bài thuốc dân gian giúp phụ nữ sau sinh nhanh phục hồi sức khỏe, ăn ngon miệng hơn.",
-                benefit_5_title: "Kháng Khuẩn", benefit_5_desc: "Ức chế vi khuẩn có hại, hỗ trợ làm lành vết thương và tăng cường hệ miễn dịch tự nhiên.",
-                benefit_6_title: "Ổn Định Huyết Áp", benefit_6_desc: "Hỗ trợ điều hòa huyết áp, là thức uống lành mạnh cho người có tiền sử huyết áp không ổn định.",
+                benefits_title: "Công Dụng Tuyệt Vời <br>Từ Thiên Nhiên", benefits_subtitle: "Giá trị cốt lõi",
+                benefit_1_title: "Thanh Nhiệt", benefit_1_desc: "Làm mát gan, giảm nhiệt miệng và mụn nhọt hiệu quả.",
+                benefit_2_title: "Hỗ Trợ Gan Mật", benefit_2_desc: "Kích thích tiết mật, bảo vệ tế bào gan, hỗ trợ điều trị vàng da.",
+                benefit_3_title: "An Thần", benefit_3_desc: "Giúp thư giãn thần kinh, giảm căng thẳng và mang lại giấc ngủ sâu.",
+                benefit_4_title: "Phụ Nữ Sau Sinh", benefit_4_desc: "Giúp phụ nữ sau sinh nhanh phục hồi sức khỏe, ăn ngon miệng hơn.",
+                benefit_5_title: "Kháng Khuẩn", benefit_5_desc: "Ức chế vi khuẩn có hại, hỗ trợ làm lành vết thương.",
+                benefit_6_title: "Ổn Định Huyết Áp", benefit_6_desc: "Hỗ trợ điều hòa huyết áp cho người có tiền sử không ổn định.",
                 product_name: "Gói Nhân Trần Đỗ Hiếu", product_desc: "Nguyên chất, thơm ngon, đậm đà vị quê.",
                 price_unit: "/ 1 gói (100g)", discount_title: "Ưu đãi số lượng lớn",
                 form_title: "Đặt Hàng Nhanh", label_name: "Họ và tên", label_phone: "Số điện thoại",
@@ -520,15 +490,15 @@
             en: {
                 menu_about: "About", menu_benefits: "Benefits", menu_order: "Order", menu_location: "Location",
                 hero_subtitle: "Essence of Hoa Binh Mountains", hero_title: "Pure <span class='text-brand-gold italic font-serif'>Sweetness</span>",
-                hero_desc: "Premium cooling drink from the most strictly selected herbal buds. Rich traditional flavor, elevating modern health.",
+                hero_desc: "Premium cooling drink from the most strictly selected herbal buds.",
                 btn_buy_now: "ORDER NOW", btn_location: "EXPLORE", about_title: "Do Hieu <br><span class='text-brand-gold'>Herbal Tea</span>",
-                feature_1: "Clean Standard", feature_2: "Dedication", benefits_title: "Amazing Benefits <br>From Nature", benefits_subtitle: "Core Values",
-                benefit_1_title: "Body Cooling", benefit_1_desc: "Perfect solution for hot summer days. Cools the liver, reduces internal heat and acne effectively.",
-                benefit_2_title: "Liver Support", benefit_2_desc: "Stimulates bile secretion, protects liver cells, actively supports treatment of jaundice and high liver enzymes.",
-                benefit_3_title: "Relaxation", benefit_3_desc: "Gentle herbal aroma helps relax nerves, reduce stress and bring deep sleep.",
-                benefit_4_title: "Postpartum Care", benefit_4_desc: "Folk remedy helping postpartum women recover health quickly and eat better.",
-                benefit_5_title: "Antibacterial", benefit_5_desc: "Inhibits harmful bacteria, supports wound healing and strengthens natural immunity.",
-                benefit_6_title: "Blood Pressure", benefit_6_desc: "Supports blood pressure regulation, a healthy drink for people with unstable blood pressure history.",
+                benefits_title: "Amazing Benefits <br>From Nature", benefits_subtitle: "Core Values",
+                benefit_1_title: "Body Cooling", benefit_1_desc: "Cools the liver, reduces internal heat and acne effectively.",
+                benefit_2_title: "Liver Support", benefit_2_desc: "Stimulates bile secretion, protects liver cells.",
+                benefit_3_title: "Relaxation", benefit_3_desc: "Helps relax nerves, reduce stress and bring deep sleep.",
+                benefit_4_title: "Postpartum Care", benefit_4_desc: "Helping postpartum women recover health quickly.",
+                benefit_5_title: "Antibacterial", benefit_5_desc: "Inhibits harmful bacteria, supports wound healing.",
+                benefit_6_title: "Blood Pressure", benefit_6_desc: "Supports blood pressure regulation.",
                 product_name: "Do Hieu Herbal Tea Pack", product_desc: "Pure, delicious, rich rural taste.",
                 price_unit: "/ 1 pack (100g)", discount_title: "Bulk Discount",
                 form_title: "Quick Order", label_name: "Full Name", label_phone: "Phone Number",
