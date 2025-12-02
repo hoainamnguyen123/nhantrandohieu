@@ -36,23 +36,20 @@
     <style>
         html { scroll-behavior: smooth; }
         
-        /* Mobile Menu Animation */
         #mobile-menu { transition: transform 0.3s ease-in-out; }
         .menu-closed { transform: translateX(100%); }
         .menu-open { transform: translateX(0); }
 
-        /* Animations */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .reveal { animation: fadeUp 1s ease-out forwards; }
         
-        /* Slider optimized for Mobile & Desktop */
         .slider-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background-size: cover; background-position: center; /* Quan trọng: Căn giữa ảnh */
+            background-size: cover; background-position: center; 
             opacity: 0; transition: opacity 1.5s ease-in-out; 
         }
         .slide.active { opacity: 1; animation: zoomEffect 10s linear forwards; }
@@ -113,18 +110,12 @@
     <!-- HERO SECTION -->
     <header class="relative h-[100vh] md:h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-dark">
         <div class="slider-container">
-            <!-- Ảnh 1: Vùng núi (Unsplash) -->
+            <!-- Ảnh 1: Vùng núi -->
             <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=2070&auto=format&fit=crop');"></div>
-            
-            <!-- Ảnh 2: ẢNH KHÁCH CUNG CẤP (Đã xử lý cho Mobile) -->
-            <div class="slide" style="
-                background-image: linear-gradient(rgba(0,0,0,0.3), rgba(15,31,21,0.7)), url('https://nhatnamyvien.org/wp-content/uploads/2024/06/nhan-tran-thumb.jpg'); 
-                background-position: center center; 
-                filter: contrast(1.1) saturate(1.1);
-            "></div>
-            
-            <!-- Ảnh 3: Ly trà (Unsplash) -->
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=2070&auto=format&fit=crop');"></div>
+            <!-- Ảnh 2: Phơi thảo mộc -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1615486511484-92e172cc416d?q=80&w=2070&auto=format&fit=crop');"></div>
+            <!-- Ảnh 3: Đồi chè -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?q=80&w=1978&auto=format&fit=crop');"></div>
         </div>
 
         <div class="absolute inset-0 hero-overlay z-10"></div>
@@ -185,7 +176,7 @@
                 </h2>
                 
                 <p class="text-gray-500 mb-6 text-sm md:text-lg font-light leading-relaxed text-justify" data-key="about_p1">
-                    Được canh tác tại vùng nguyên liệu sạch biệt lập tại Tân Lạc - Hòa Bình, Nhân Trần Đỗ Hiếu tự hào mang đến giải pháp thanh nhiệt hoàn toàn từ thiên nhiên. Chúng tôi kiểm soát nghiêm ngặt từ khâu chọn giống, thu hái đến quy trình phơi sấy khép kín, đảm bảo giữ lại tối đa dược tính quý giá. Đây không chỉ là thức uống, mà là lời cam kết vàng về một lối sống xanh, lành mạnh và cân bằng cho người Việt hiện đại.
+                    Khởi nguồn từ những dải núi đá vôi hùng vĩ tại Tân Lạc - Hòa Bình, nơi khí hậu quanh năm sương phủ tạo nên dược tính tuyệt vời cho thảo mộc. Nhân trần Đỗ Hiếu không đơn thuần là một thức uống giải khát, đó là kết tinh của quy trình canh tác thuận tự nhiên, sự tỉ mỉ trong từng khâu sao sấy thủ công và khát vọng gìn giữ nét văn hóa ẩm thực bình dị mà thanh cao của người Việt.
                 </p>
                 
                 <div class="flex items-center gap-4 md:gap-8 border-t border-gray-100 pt-6 md:pt-8">
@@ -257,7 +248,7 @@
         </div>
     </section>
 
-    <!-- ORDER SECTION -->
+    <!-- ORDER SECTION (UPDATED: API ADDRESS) -->
     <section id="order" class="py-16 md:py-24 container mx-auto px-4 md:px-6">
         <div class="max-w-6xl mx-auto glass-panel shadow-2xl rounded-xl overflow-hidden flex flex-col lg:flex-row">
             <!-- Product Info -->
@@ -309,9 +300,25 @@
                         </div>
                     </div>
 
+                    <!-- NEW ADDRESS BLOCK WITH API -->
                     <div class="relative group">
                         <label class="block text-[10px] md:text-xs font-bold text-gray-500 uppercase mb-1 md:mb-2 tracking-wider" data-key="label_address">Địa chỉ nhận hàng</label>
-                        <input type="text" id="customerAddress" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:border-brand-green outline-none transition-all placeholder-gray-300" placeholder="Số nhà, đường, xã/phường, quận/huyện...">
+                        
+                        <!-- 3 Dropdowns Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                            <select id="province" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-3 text-sm focus:border-brand-green outline-none transition-all">
+                                <option value="">Chọn Tỉnh/Thành</option>
+                            </select>
+                            <select id="district" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-3 text-sm focus:border-brand-green outline-none transition-all">
+                                <option value="">Chọn Quận/Huyện</option>
+                            </select>
+                            <select id="ward" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-3 text-sm focus:border-brand-green outline-none transition-all">
+                                <option value="">Chọn Phường/Xã</option>
+                            </select>
+                        </div>
+
+                        <!-- Specific Address Input -->
+                        <input type="text" id="houseNumber" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:border-brand-green outline-none transition-all placeholder-gray-300" placeholder="Số nhà, tên đường, thôn/xóm...">
                     </div>
 
                     <div class="bg-brand-light/50 p-4 md:p-6 rounded-xl border border-brand-green/10">
@@ -361,66 +368,78 @@
         </div>
     </section>
 
-    <!-- FOOTER SECTION (RESTORED FULL VERSION) -->
+    <!-- FOOTER SECTION (RESTORED FULL) -->
     <footer id="contact" class="bg-brand-dark text-white pt-16 md:pt-20 border-t-8 border-brand-gold relative overflow-hidden">
         <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10"></div>
         
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
-                <!-- 1. Brand Info -->
+                <!-- Brand Info -->
                 <div class="lg:col-span-1">
                     <h4 class="font-serif text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6 flex items-center gap-3">
                         <i class="fas fa-leaf text-brand-gold"></i> ĐỖ HIẾU
                     </h4>
                     <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                        Đặc sản vùng cao Hòa Bình. Chúng tôi tâm huyết mang đến những sản phẩm thảo mộc sạch, giữ trọn hương vị truyền thống.
+                        Đặc sản Hòa Bình. Chúng tôi tâm huyết mang đến những sản phẩm thảo mộc sạch, giữ trọn hương vị truyền thống và giá trị sức khỏe cho cộng đồng.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
 
-                <!-- 2. Quick Links (RESTORED) -->
+                <!-- Quick Links (Restored) -->
                 <div>
                     <h4 class="font-bold text-white mb-4 md:mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Khám Phá</h4>
                     <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#about" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Câu chuyện</a></li>
-                        <li><a href="#benefits" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Công dụng</a></li>
-                        <li><a href="#order" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Đặt hàng</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Chính sách</a></li>
+                        <li><a href="#about" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Câu chuyện thương hiệu</a></li>
+                        <li><a href="#benefits" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Công dụng sản phẩm</a></li>
+                        <li><a href="#order" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Đặt hàng ngay</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-xs"></i> Chính sách đại lý</a></li>
                     </ul>
                 </div>
 
-                <!-- 3. Contact Info -->
+                <!-- Contact Info -->
                 <div>
                     <h4 class="font-bold text-white mb-4 md:mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Liên Hệ</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
+                    <ul class="space-y-4 text-sm text-gray-400">
                         <li class="flex items-start gap-3">
                             <i class="fas fa-map-marker-alt mt-1 text-brand-gold"></i>
-                            <span>Phong Phú, Tân Lạc, Hòa Bình</span>
+                            <span>Phong Phú, Tân Lạc, Hòa Bình,<br>Việt Nam</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-phone-alt text-brand-gold"></i>
-                            <a href="tel:09xxxxxxxxx">09xx.xxx.xxx</a>
+                            <a href="tel:0337998378" class="hover:text-white transition">0337998378</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-brand-gold"></i>
+                            <a href="mailto:nhantrandohieu@gmail.com" class="hover:text-white transition">nhantrandohieu@gmail.com</a>
                         </li>
                     </ul>
                 </div>
-
-                <!-- 4. Newsletter (RESTORED) -->
+                
+                <!-- Newsletter (Restored) -->
                 <div>
-                    <h4 class="font-bold text-white mb-4 md:mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Đăng Ký</h4>
+                    <h4 class="font-bold text-white mb-4 md:mb-6 uppercase text-sm tracking-widest border-b border-brand-gold/30 pb-2 inline-block">Đăng Ký Nhận Tin</h4>
                     <p class="text-xs text-gray-400 mb-4">Nhận thông tin ưu đãi và kiến thức sức khỏe mới nhất.</p>
                     <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký!');">
                         <input type="email" placeholder="Email của bạn..." class="bg-white/5 border border-white/10 rounded px-4 py-3 text-sm text-white focus:border-brand-gold outline-none transition">
-                        <button class="bg-brand-gold text-brand-dark font-bold py-2 rounded hover:bg-white transition uppercase text-xs tracking-wider">Gửi</button>
+                        <button class="bg-brand-gold text-brand-dark font-bold py-2 rounded hover:bg-white transition uppercase text-xs tracking-wider">Đăng Ký</button>
                     </form>
                 </div>
             </div>
         </div>
         
-        <div class="border-t border-white/10 bg-black/20 pt-6 pb-6 mt-8 relative z-10 text-center text-xs text-gray-500">
-            <p>© 2024 Nhân Trần Đỗ Hiếu.</p>
+        <div class="border-t border-white/10 bg-black/20 pt-6 pb-6 mt-8 relative z-10">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-xs">© 2025 Nhân Trần Đỗ Hiếu. All Rights Reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-500">
+                    <a href="#" class="hover:text-white transition">Điều khoản</a>
+                    <a href="#" class="hover:text-white transition">Bảo mật</a>
+                    <a href="#" class="hover:text-white transition">Sitemap</a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -439,7 +458,58 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // MOBILE MENU TOGGLE
+        // === 1. API ĐỊA CHÍNH (PROVINCES API) ===
+        const host = "https://provinces.open-api.vn/api/";
+        
+        var callAPI = (api) => {
+            return fetch(api)
+                .then((response) => response.json())
+                .then((rows) => {
+                    renderData(rows, "province");
+                });
+        }
+        
+        callAPI('https://provinces.open-api.vn/api/?depth=1');
+
+        var callApiDistrict = (api) => {
+            return fetch(api)
+                .then((response) => response.json())
+                .then((rows) => {
+                    renderData(rows.districts, "district");
+                });
+        }
+        var callApiWard = (api) => {
+            return fetch(api)
+                .then((response) => response.json())
+                .then((rows) => {
+                    renderData(rows.wards, "ward");
+                });
+        }
+
+        var renderData = (array, select) => {
+            let row = ' <option disable value="">' + (select === 'province' ? 'Chọn Tỉnh/Thành' : (select === 'district' ? 'Chọn Quận/Huyện' : 'Chọn Phường/Xã')) + '</option>';
+            array.forEach(element => {
+                row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+            });
+            document.querySelector("#" + select).innerHTML = row;
+        }
+
+        document.querySelector("#province").addEventListener("change", () => {
+            let selectedOption = document.querySelector("#province").options[document.querySelector("#province").selectedIndex];
+            let provinceCode = selectedOption.dataset.id;
+            callApiDistrict(host + "p/" + provinceCode + "?depth=2");
+            document.querySelector("#district").innerHTML = '<option value="">Chọn Quận/Huyện</option>';
+            document.querySelector("#ward").innerHTML = '<option value="">Chọn Phường/Xã</option>';
+        });
+
+        document.querySelector("#district").addEventListener("change", () => {
+            let selectedOption = document.querySelector("#district").options[document.querySelector("#district").selectedIndex];
+            let districtCode = selectedOption.dataset.id;
+            callApiWard(host + "d/" + districtCode + "?depth=2");
+            document.querySelector("#ward").innerHTML = '<option value="">Chọn Phường/Xã</option>';
+        });
+
+        // === 2. MOBILE MENU & UI LOGIC ===
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const icon = document.getElementById('mobile-icon');
@@ -457,7 +527,6 @@
             }
         }
 
-        // SLIDER
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
         function nextSlide() {
@@ -467,7 +536,7 @@
         }
         setInterval(nextSlide, 5000);
 
-        // TRANSLATION DATA
+        // === 3. TRANSLATION & CART LOGIC ===
         const translations = {
             vi: {
                 menu_about: "Giới thiệu", menu_benefits: "Công dụng", menu_order: "Đặt hàng", menu_location: "Địa chỉ",
@@ -482,7 +551,7 @@
                 benefit_5_title: "Kháng Khuẩn", benefit_5_desc: "Ức chế vi khuẩn có hại, hỗ trợ làm lành vết thương.",
                 benefit_6_title: "Ổn Định Huyết Áp", benefit_6_desc: "Hỗ trợ điều hòa huyết áp cho người có tiền sử không ổn định.",
                 product_name: "Gói Nhân Trần Đỗ Hiếu", product_desc: "Nguyên chất, thơm ngon, đậm đà vị quê.",
-                price_unit: "/ 1 gói (100g)", discount_title: "Ưu đãi số lượng lớn",
+                price_unit: "/ 1 gói (200g)", discount_title: "Ưu đãi số lượng lớn",
                 form_title: "Đặt Hàng Nhanh", label_name: "Họ và tên", label_phone: "Số điện thoại",
                 label_address: "Địa chỉ nhận hàng", label_quantity: "Số lượng gói", label_total: "Thành tiền",
                 btn_submit: "GỬI ĐƠN HÀNG NGAY", location_title: "Ghé Thăm Chúng Tôi"
@@ -552,7 +621,7 @@
             return amount.toLocaleString('vi-VN') + (currentLang === 'vi' ? 'đ' : ' VND');
         }
 
-        // --- GOOGLE FORM CONFIG ---
+        // === 4. GOOGLE FORM SUBMIT (WITH ADDRESS COMBINATION) ===
         const GOOGLE_FORM_CONFIG = {
             formURL: "https://docs.google.com/forms/d/e/1FAIpQLSeXdEilR1SjmJrwsLzqfNA5j6MrC_GPG7j-3WJ7AHJUh31Jzw/formResponse", 
             entryIDs: {
@@ -567,14 +636,22 @@
         function submitOrder() {
             const name = document.getElementById('customerName').value;
             const phone = document.getElementById('customerPhone').value;
-            const address = document.getElementById('customerAddress').value;
-            const qty = document.getElementById('quantity').value;
+            const quantity = document.getElementById('quantity').value;
             const total = document.getElementById('totalPrice').innerText;
             
-            if(!name || !phone || !address) {
+            // Get Address Parts
+            const houseNumber = document.getElementById('houseNumber').value;
+            const province = document.getElementById('province').value;
+            const district = document.getElementById('district').value;
+            const ward = document.getElementById('ward').value;
+
+            if(!name || !phone || !houseNumber || !province || !district || !ward) {
                 alert(currentLang === 'vi' ? "Vui lòng điền đầy đủ thông tin!" : "Please fill in all fields!");
                 return;
             }
+
+            // Combine Address
+            const fullAddress = `${houseNumber}, ${ward}, ${district}, ${province}`;
 
             const btn = document.getElementById('submitBtn');
             const originalText = document.getElementById('btnText').innerText;
@@ -586,8 +663,8 @@
             const formData = new FormData();
             formData.append(GOOGLE_FORM_CONFIG.entryIDs.name, name);
             formData.append(GOOGLE_FORM_CONFIG.entryIDs.phone, phone);
-            formData.append(GOOGLE_FORM_CONFIG.entryIDs.address, address);
-            formData.append(GOOGLE_FORM_CONFIG.entryIDs.quantity, qty);
+            formData.append(GOOGLE_FORM_CONFIG.entryIDs.address, fullAddress); // Send combined address
+            formData.append(GOOGLE_FORM_CONFIG.entryIDs.quantity, quantity);
             formData.append(GOOGLE_FORM_CONFIG.entryIDs.total, total);
 
             fetch(GOOGLE_FORM_CONFIG.formURL, {
