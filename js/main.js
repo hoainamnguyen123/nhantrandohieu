@@ -1,0 +1,242 @@
+// === 1. API ĐỊA CHÍNH (PROVINCES API) ===
+const host = "https://provinces.open-api.vn/api/";
+
+var callAPI = (api) => {
+    return fetch(api)
+        .then((response) => response.json())
+        .then((rows) => {
+            renderData(rows, "province");
+        });
+}
+
+callAPI('https://provinces.open-api.vn/api/?depth=1');
+
+var callApiDistrict = (api) => {
+    return fetch(api)
+        .then((response) => response.json())
+        .then((rows) => {
+            renderData(rows.districts, "district");
+        });
+}
+var callApiWard = (api) => {
+    return fetch(api)
+        .then((response) => response.json())
+        .then((rows) => {
+            renderData(rows.wards, "ward");
+        });
+}
+
+var renderData = (array, select) => {
+    let row = ' <option disable value="">' + (select === 'province' ? 'Chọn Tỉnh/Thành' : (select === 'district' ? 'Chọn Quận/Huyện' : 'Chọn Phường/Xã')) + '</option>';
+    array.forEach(element => {
+        row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+    });
+    document.querySelector("#" + select).innerHTML = row;
+}
+
+document.querySelector("#province").addEventListener("change", () => {
+    let selectedOption = document.querySelector("#province").options[document.querySelector("#province").selectedIndex];
+    let provinceCode = selectedOption.dataset.id;
+    callApiDistrict(host + "p/" + provinceCode + "?depth=2");
+    document.querySelector("#district").innerHTML = '<option value="">Chọn Quận/Huyện</option>';
+    document.querySelector("#ward").innerHTML = '<option value="">Chọn Phường/Xã</option>';
+});
+
+document.querySelector("#district").addEventListener("change", () => {
+    let selectedOption = document.querySelector("#district").options[document.querySelector("#district").selectedIndex];
+    let districtCode = selectedOption.dataset.id;
+    callApiWard(host + "d/" + districtCode + "?depth=2");
+    document.querySelector("#ward").innerHTML = '<option value="">Chọn Phường/Xã</option>';
+});
+
+// === 2. MOBILE MENU & UI LOGIC ===
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const icon = document.getElementById('mobile-icon');
+
+    if (menu.classList.contains('menu-closed')) {
+        menu.classList.remove('menu-closed');
+        menu.classList.add('menu-open');
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        menu.classList.add('menu-closed');
+        menu.classList.remove('menu-open');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+}
+
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+function nextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+setInterval(nextSlide, 5000);
+
+// PARTICLES EFFECT
+function createParticles() {
+    const container = document.getElementById('particles');
+    // Check if container exists to prevent errors
+    if (!container) return;
+
+    const particleCount = 20;
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+
+        // Random properties
+        const size = Math.random() * 5 + 2; // 2px to 7px
+        const left = Math.random() * 100; // 0% to 100%
+        const duration = Math.random() * 10 + 10; // 10s to 20s
+        const delay = Math.random() * 5; // 0s to 5s
+
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${left}%`;
+        particle.style.bottom = `-20px`; // Start below
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+
+        container.appendChild(particle);
+    }
+}
+document.addEventListener('DOMContentLoaded', createParticles);
+
+// === 3. TRANSLATION & CART LOGIC ===
+let currentLang = 'vi';
+const UNIT_PRICE = 25000;
+
+function toggleLanguage() {
+    currentLang = currentLang === 'vi' ? 'en' : 'vi';
+    document.getElementById('current-lang-display').innerText = currentLang.toUpperCase();
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[currentLang][key]) el.innerHTML = translations[currentLang][key];
+    });
+    // Update placeholders
+    document.querySelectorAll('[data-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-placeholder');
+        if (translations[currentLang][key]) el.placeholder = translations[currentLang][key];
+    });
+    updateTotal();
+}
+
+function changeQty(amount) {
+    const input = document.getElementById('quantity');
+    let newValue = parseInt(input.value) + amount;
+    if (newValue < 1) newValue = 1;
+    input.value = newValue;
+    updateTotal();
+}
+
+function updateTotal() {
+    const qty = parseInt(document.getElementById('quantity').value) || 0;
+    let subtotal = qty * UNIT_PRICE;
+    let discount = Math.floor(qty / 10) * 10000;
+    let finalTotal = subtotal - discount;
+    if (finalTotal < 0) finalTotal = 0;
+
+    const totalPriceEl = document.getElementById('totalPrice');
+    const discountRow = document.getElementById('discountRow');
+    const discountAmountEl = document.getElementById('discountAmount');
+
+    if (discount > 0) {
+        discountRow.classList.remove('hidden');
+        discountAmountEl.innerText = `-${formatCurrency(discount)}`;
+    } else {
+        discountRow.classList.add('hidden');
+    }
+    totalPriceEl.innerText = formatCurrency(finalTotal);
+}
+
+function formatCurrency(amount) {
+    return amount.toLocaleString('vi-VN') + (currentLang === 'vi' ? 'đ' : ' VND');
+}
+
+// === 4. GOOGLE FORM SUBMIT (WITH ADDRESS COMBINATION) ===
+const GOOGLE_FORM_CONFIG = {
+    formURL: "https://docs.google.com/forms/d/e/1FAIpQLSeXdEilR1SjmJrwsLzqfNA5j6MrC_GPG7j-3WJ7AHJUh31Jzw/formResponse",
+    entryIDs: {
+        name: "entry.335929754",
+        phone: "entry.963974311",
+        address: "entry.1626455781",
+        quantity: "entry.1760436127",
+        total: "entry.207976968"
+    }
+};
+
+function submitOrder() {
+    const name = document.getElementById('customerName').value;
+    const phone = document.getElementById('customerPhone').value;
+    const quantity = document.getElementById('quantity').value;
+    const total = document.getElementById('totalPrice').innerText;
+
+    // Get Address Parts
+    const houseNumber = document.getElementById('houseNumber').value;
+    const province = document.getElementById('province').value;
+    const district = document.getElementById('district').value;
+    const ward = document.getElementById('ward').value;
+
+    if (!name || !phone || !houseNumber || !province || !district || !ward) {
+        alert(currentLang === 'vi' ? "Vui lòng điền đầy đủ thông tin!" : "Please fill in all fields!");
+        return;
+    }
+
+    // Combine Address
+    const fullAddress = `${houseNumber}, ${ward}, ${district}, ${province}`;
+
+    const btn = document.getElementById('submitBtn');
+    const originalText = document.getElementById('btnText').innerText;
+    const originalIconClass = document.getElementById('btnIcon').className;
+
+    btn.disabled = true;
+    btn.innerHTML = `<div class="loader"></div> ${currentLang === 'vi' ? 'Đang gửi...' : 'Sending...'}`;
+
+    const formData = new FormData();
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.name, name);
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.phone, phone);
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.address, fullAddress); // Send combined address
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.quantity, quantity);
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.total, total);
+
+    fetch(GOOGLE_FORM_CONFIG.formURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+    }).then(() => {
+        showSuccess(name);
+        resetForm(btn, originalText, originalIconClass);
+    }).catch((err) => {
+        showSuccess(name);
+        resetForm(btn, originalText, originalIconClass);
+    });
+}
+
+function showSuccess(name) {
+    document.getElementById('successName').innerText = name;
+    const modal = document.getElementById('successModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('visible');
+    document.getElementById('orderForm').reset();
+    updateTotal();
+}
+
+function resetForm(btn, text, iconClass) {
+    btn.disabled = false;
+    btn.innerHTML = `<span id="btnText">${text}</span> <i id="btnIcon" class="${iconClass}"></i>`;
+}
+
+function closeModal() {
+    const modal = document.getElementById('successModal');
+    modal.classList.remove('visible');
+    modal.classList.add('hidden');
+}
+
+// Init
+if (document.getElementById('quantity')) {
+    updateTotal();
+}
