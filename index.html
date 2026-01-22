@@ -15,6 +15,9 @@
         rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Confetti JS -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 
     <script>
         tailwind.config = {
@@ -296,6 +299,83 @@
                         Ổn Định Huyết Áp</h3>
                     <p class="text-gray-500 font-light leading-relaxed text-sm" data-key="benefit_6_desc">Thức uống lành
                         mạnh cho người có tiền sử huyết áp không ổn định.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION (NEW) -->
+    <section id="faq" class="py-16 md:py-24 bg-brand-light relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16">
+                <span class="text-brand-green font-bold tracking-widest uppercase text-xs mb-2 block"
+                    data-key="faq_subtitle">Thắc Mắc Thường Gặp</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-dark font-bold" data-key="faq_title">Giải Đáp
+                    Thông Tin</h2>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q1">Nhân trần có tác
+                            dụng phụ không?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a1">
+                            Nhân trần là thảo mộc lành tính, tuy nhiên phụ nữ mang thai hoặc người có tỳ vị hư hàn nên
+                            tham khảo ý kiến bác sĩ trước khi dùng thường xuyên.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q2">Cách pha nhân trần
+                            ngon nhất?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a2">
+                            Rửa sạch nhân trần, hãm với nước sôi 90-100 độ C trong khoảng 10-15 phút. Có thể uống nóng
+                            hoặc thêm đá tùy khẩu vị.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q3">Thời hạn bảo quản
+                            là bao lâu?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a3">
+                            Sản phẩm được sấy khô tự nhiên, bảo quản nơi khô ráo, thoáng mát có thể dùng tốt trong vòng
+                            6-12 tháng.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q4">Ship hàng toàn quốc
+                            không?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a4">
+                            Có, chúng tôi ship COD toàn quốc. Thời gian giao hàng từ 2-4 ngày tùy khu vực.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -659,6 +739,28 @@
                 class="w-full bg-brand-green text-white font-bold py-3 rounded-lg hover:bg-brand-dark transition">Tuyệt
                 vời</button>
         </div>
+    </div>
+
+    <!-- FLOATING ACTIONS -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
+        <!-- Back to Top -->
+        <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="w-10 h-10 md:w-12 md:h-12 bg-white text-brand-dark shadow-lg rounded-full flex items-center justify-center hover:bg-brand-gold hover:text-white transition-all duration-300 translate-y-20 opacity-0 transform">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <div class="fixed bottom-6 left-6 z-40 flex flex-col gap-3">
+        <!-- Zalo -->
+        <a href="https://zalo.me/0337998378" target="_blank"
+            class="w-10 h-10 md:w-12 md:h-12 bg-blue-500 text-white shadow-lg rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-bounce-slow">
+            <span class="font-bold font-sans text-xs">Zalo</span>
+        </a>
+        <!-- Phone -->
+        <a href="tel:0337998378"
+            class="w-10 h-10 md:w-12 md:h-12 bg-green-500 text-white shadow-lg rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-pulse">
+            <i class="fas fa-phone-alt"></i>
+        </a>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->

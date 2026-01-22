@@ -218,6 +218,15 @@ function submitOrder() {
 
 function showSuccess(name) {
     document.getElementById('successName').innerText = name;
+    // Trigger Confetti
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#2F5233', '#C5A059', '#D9534F']
+        });
+    }
     const modal = document.getElementById('successModal');
     modal.classList.remove('hidden');
     modal.classList.add('visible');
@@ -239,4 +248,46 @@ function closeModal() {
 // Init
 if (document.getElementById('quantity')) {
     updateTotal();
+}
+
+// === 5. NEW FEATURES LOGIC ===
+
+// FAQ Accordion
+function toggleFAQ(button) {
+    const content = button.nextElementSibling;
+    const icon = button.querySelector('i');
+
+    // Toggle current
+    if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        icon.classList.remove('rotate-45');
+        icon.classList.remove('text-brand-accent');
+        icon.classList.add('text-brand-gold');
+    } else {
+        // Close others (Optional - keep open for better UX or close for cleaner UI? Let's close others for cleaner UI)
+        document.querySelectorAll('#faq .max-h-0').forEach(el => {
+            if (el !== content && el.style.maxHeight) {
+                el.style.maxHeight = null;
+                el.previousElementSibling.querySelector('i').classList.remove('rotate-45');
+                el.previousElementSibling.querySelector('i').classList.remove('text-brand-accent');
+            }
+        });
+
+        content.style.maxHeight = content.scrollHeight + "px";
+        icon.classList.add('rotate-45');
+        icon.classList.add('text-brand-accent');
+        icon.classList.remove('text-brand-gold');
+    }
+}
+
+// Back To Top Scroll
+const backToTopBtn = document.getElementById('backToTop');
+if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
+        } else {
+            backToTopBtn.classList.add('translate-y-20', 'opacity-0');
+        }
+    });
 }
