@@ -30,7 +30,9 @@ const translations = {
         faq_q1: "Nhân trần có tác dụng phụ không?", faq_a1: "Nhân trần là thảo mộc lành tính, tuy nhiên phụ nữ mang thai hoặc người có tỳ vị hư hàn nên tham khảo ý kiến bác sĩ trước khi dùng thường xuyên.",
         faq_q2: "Cách pha nhân trần ngon nhất?", faq_a2: "Rửa sạch nhân trần, hãm với nước sôi 90-100 độ C trong khoảng 10-15 phút. Có thể uống nóng hoặc thêm đá tùy khẩu vị.",
         faq_q3: "Thời hạn bảo quản là bao lâu?", faq_a3: "Sản phẩm được sấy khô tự nhiên, bảo quản nơi khô ráo, thoáng mát có thể dùng tốt trong vòng 6-12 tháng.",
-        faq_q4: "Ship hàng toàn quốc không?", faq_a4: "Có, chúng tôi ship COD toàn quốc. Thời gian giao hàng từ 2-4 ngày tùy khu vực."
+        faq_q4: "Ship hàng toàn quốc không?", faq_a4: "Có, chúng tôi ship COD toàn quốc. Thời gian giao hàng từ 2-4 ngày tùy khu vực.",
+        alert_spam: "Hệ thống phát hiện spam. Vui lòng thử lại sau.",
+        alert_rate_limit: "Bạn gửi đơn quá nhanh. Vui lòng đợi 5 phút trước khi đặt tiếp."
     },
     en: {
         menu_about: "About", menu_benefits: "Benefits", menu_reviews: "Reviews", menu_order: "Order", menu_location: "Location", menu_order_now: "Order Now",
@@ -63,6 +65,8 @@ const translations = {
         faq_q1: "Any side effects?", faq_a1: "Herbal tea is benign, however pregnant women or people with cold stomachs should consult a doctor before regular use.",
         faq_q2: "How to brew the best tea?", faq_a2: "Rinse the tea, steep in boiling water (90-100°C) for 10-15 minutes. Can be served hot or with ice.",
         faq_q3: "Shelf life?", faq_a3: "Naturally dried products kept in a cool, dry place can be used for 6-12 months.",
-        faq_q4: "Nationwide shipping?", faq_a4: "Yes, we ship COD nationwide. Delivery time is 2-4 days depending on the area."
+        faq_q4: "Nationwide shipping?", faq_a4: "Yes, we ship COD nationwide. Delivery time is 2-4 days depending on the area.",
+        alert_spam: "System detected spam. Please try again later.",
+        alert_rate_limit: "You are sending too fast. Please wait 5 minutes."
     }
 };

@@ -170,6 +170,26 @@ const GOOGLE_FORM_CONFIG = {
 };
 
 function submitOrder() {
+    // 1. SPAM PREVENTION: Honeypot Check
+    const honeypot = document.getElementById('honey_website');
+    if (honeypot && honeypot.value) {
+        console.warn("Spam bot detected!");
+        alert(translations[currentLang]['alert_spam'] || "Spam detected!");
+        return;
+    }
+
+    // 2. SPAM PREVENTION: Rate Limiting (5 minutes)
+    const LAST_ORDER_KEY = 'lastOrderTime';
+    const COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes
+    const lastOrderTime = localStorage.getItem(LAST_ORDER_KEY);
+    const now = Date.now();
+
+    if (lastOrderTime && (now - parseInt(lastOrderTime)) < COOLDOWN_MS) {
+        const remaining = Math.ceil((COOLDOWN_MS - (now - parseInt(lastOrderTime))) / 60000);
+        alert((translations[currentLang]['alert_rate_limit'] || "Too fast!").replace("5", remaining));
+        return;
+    }
+
     const name = document.getElementById('customerName').value;
     const phone = document.getElementById('customerPhone').value;
     const quantity = document.getElementById('quantity').value;
@@ -208,10 +228,13 @@ function submitOrder() {
         body: formData,
         mode: 'no-cors'
     }).then(() => {
+        // Save Rate Limit Timestamp
+        localStorage.setItem(LAST_ORDER_KEY, Date.now().toString());
+
         showSuccess(name);
         resetForm(btn, originalText, originalIconClass);
     }).catch((err) => {
-        showSuccess(name);
+        showSuccess(name); // Google Forms no-cors often throws or returns opaque, we assume success or handle generic error
         resetForm(btn, originalText, originalIconClass);
     });
 }
