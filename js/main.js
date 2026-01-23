@@ -178,17 +178,26 @@ function submitOrder() {
         return;
     }
 
-    // 2. SPAM PREVENTION: Rate Limiting (5 minutes)
-    const LAST_ORDER_KEY = 'lastOrderTime';
-    const COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes
-    const lastOrderTime = localStorage.getItem(LAST_ORDER_KEY);
+    // 2. SPAM PREVENTION: Rate Limiting (2 attempts / 5 mins lock)
+    const SPAM_KEY = 'spamProtection';
+    const LOCK_DURATION = 5 * 60 * 1000; // 5 minutes
+    const RESET_WINDOW = 10 * 60 * 1000; // Reset count if no activity for 10 mins
+
+    let spamState = JSON.parse(localStorage.getItem(SPAM_KEY)) || { count: 0, lockUntil: 0, lastTime: 0 };
     const now = Date.now();
 
-    if (lastOrderTime && (now - parseInt(lastOrderTime)) < COOLDOWN_MS) {
-        const remaining = Math.ceil((COOLDOWN_MS - (now - parseInt(lastOrderTime))) / 60000);
+    // Check Lock
+    if (spamState.lockUntil > now) {
+        const remaining = Math.ceil((spamState.lockUntil - now) / 60000);
         alert((translations[currentLang]['alert_rate_limit'] || "Too fast!").replace("5", remaining));
         return;
     }
+
+    // Reset count if idle for too long
+    if (now - spamState.lastTime > RESET_WINDOW) {
+        spamState.count = 0;
+    }
+
 
     const name = document.getElementById('customerName').value;
     const phone = document.getElementById('customerPhone').value;
@@ -228,13 +237,18 @@ function submitOrder() {
         body: formData,
         mode: 'no-cors'
     }).then(() => {
-        // Save Rate Limit Timestamp
-        localStorage.setItem(LAST_ORDER_KEY, Date.now().toString());
+        // Update Spam State
+        spamState.count++;
+        spamState.lastTime = Date.now();
+        if (spamState.count >= 2) {
+            spamState.lockUntil = Date.now() + LOCK_DURATION;
+        }
+        localStorage.setItem(SPAM_KEY, JSON.stringify(spamState));
 
         showSuccess(name);
         resetForm(btn, originalText, originalIconClass);
     }).catch((err) => {
-        showSuccess(name); // Google Forms no-cors often throws or returns opaque, we assume success or handle generic error
+        showSuccess(name); // Assume success for Google Forms
         resetForm(btn, originalText, originalIconClass);
     });
 }
