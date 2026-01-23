@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Confetti JS -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 
 
     <script>
@@ -592,6 +595,10 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- CLOUDFLARE TURNSTILE (REAL KEY) -->
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAACOU4SjywGcM2Ak2"
+                        data-callback="onTurnstileSuccess"></div>
 
                     <button type="submit" id="submitBtn"
                         class="w-full bg-brand-dark text-white font-bold py-3 md:py-4 rounded-lg shadow-xl hover:bg-brand-green transition-all duration-300 flex justify-center items-center gap-3 text-base md:text-lg transform hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed group">

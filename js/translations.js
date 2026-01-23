@@ -32,7 +32,8 @@ const translations = {
         faq_q3: "Thời hạn bảo quản là bao lâu?", faq_a3: "Sản phẩm được sấy khô tự nhiên, bảo quản nơi khô ráo, thoáng mát có thể dùng tốt trong vòng 6-12 tháng.",
         faq_q4: "Ship hàng toàn quốc không?", faq_a4: "Có, chúng tôi ship COD toàn quốc. Thời gian giao hàng từ 2-4 ngày tùy khu vực.",
         alert_spam: "Hệ thống phát hiện spam. Vui lòng thử lại sau.",
-        alert_rate_limit: "Bạn gửi đơn quá nhanh. Vui lòng đợi 5 phút trước khi đặt tiếp."
+        alert_rate_limit: "Bạn gửi đơn quá nhanh. Vui lòng đợi 5 phút trước khi đặt tiếp.",
+        alert_captcha: "Vui lòng xác thực bạn không phải là Robot!"
     },
     en: {
         menu_about: "About", menu_benefits: "Benefits", menu_reviews: "Reviews", menu_order: "Order", menu_location: "Location", menu_order_now: "Order Now",
@@ -67,6 +68,7 @@ const translations = {
         faq_q3: "Shelf life?", faq_a3: "Naturally dried products kept in a cool, dry place can be used for 6-12 months.",
         faq_q4: "Nationwide shipping?", faq_a4: "Yes, we ship COD nationwide. Delivery time is 2-4 days depending on the area.",
         alert_spam: "System detected spam. Please try again later.",
-        alert_rate_limit: "You are sending too fast. Please wait 5 minutes."
+        alert_rate_limit: "You are sending too fast. Please wait 5 minutes.",
+        alert_captcha: "Please verify that you are not a Robot!"
     }
 };

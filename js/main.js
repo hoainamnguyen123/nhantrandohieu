@@ -199,6 +199,13 @@ function submitOrder() {
     }
 
 
+    // 3. SPAM PREVENTION: Cloudflare Turnstile Check
+    const turnstileToken = turnstile.getResponse();
+    if (!turnstileToken) {
+        alert(translations[currentLang]['alert_captcha'] || "Please verify Captcha!");
+        return;
+    }
+
     const name = document.getElementById('customerName').value;
     const phone = document.getElementById('customerPhone').value;
     const quantity = document.getElementById('quantity').value;
@@ -231,6 +238,8 @@ function submitOrder() {
     formData.append(GOOGLE_FORM_CONFIG.entryIDs.address, fullAddress); // Send combined address
     formData.append(GOOGLE_FORM_CONFIG.entryIDs.quantity, quantity);
     formData.append(GOOGLE_FORM_CONFIG.entryIDs.total, total);
+    // Note: If you want to save the token to the sheet, add a new entryID mapping. 
+    // For now we just check it client-side to block the request.
 
     fetch(GOOGLE_FORM_CONFIG.formURL, {
         method: 'POST',
@@ -244,6 +253,9 @@ function submitOrder() {
             spamState.lockUntil = Date.now() + LOCK_DURATION;
         }
         localStorage.setItem(SPAM_KEY, JSON.stringify(spamState));
+
+        // Reset Turnstile for next attempt
+        turnstile.reset();
 
         showSuccess(name);
         resetForm(btn, originalText, originalIconClass);
