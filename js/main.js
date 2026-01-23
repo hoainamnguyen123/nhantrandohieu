@@ -157,8 +157,17 @@ function formatCurrency(amount) {
     return amount.toLocaleString('vi-VN') + (currentLang === 'vi' ? 'đ' : ' VND');
 }
 
-// === 4. WEB APP SUBMIT (SECURE + TELEGRAM) ===
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxu8n4KEsdMqAsue8JaBiJIy3W8es59ty-C_2XczZT924MVoW0Z4CkL6xeGCwBV3KJ9/exec";
+// === 4. GOOGLE FORM SUBMIT (WITH ADDRESS COMBINATION) ===
+const GOOGLE_FORM_CONFIG = {
+    formURL: "https://docs.google.com/forms/d/e/1FAIpQLSeXdEilR1SjmJrwsLzqfNA5j6MrC_GPG7j-3WJ7AHJUh31Jzw/formResponse",
+    entryIDs: {
+        name: "entry.335929754",
+        phone: "entry.963974311",
+        address: "entry.1626455781",
+        quantity: "entry.1760436127",
+        total: "entry.207976968"
+    }
+};
 
 function submitOrder() {
     // 1. SPAM PREVENTION: Honeypot Check
@@ -189,7 +198,8 @@ function submitOrder() {
         spamState.count = 0;
     }
 
-    // 3. SPAM PREVENTION: Cloudflare Turnstile Check
+
+    // 3. SPAM PREVENTION: Cloudflare Turnstile Check (Client Side Only)
     const turnstileToken = turnstile.getResponse();
     if (!turnstileToken) {
         alert(translations[currentLang]['alert_captcha'] || "Please verify Captcha!");
@@ -222,19 +232,17 @@ function submitOrder() {
     btn.disabled = true;
     btn.innerHTML = `<div class="loader"></div> ${currentLang === 'vi' ? 'Đang gửi...' : 'Sending...'}`;
 
-    // Prepare Data for Web App
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('phone', phone);
-    formData.append('address', fullAddress);
-    formData.append('quantity', quantity);
-    formData.append('total', total);
-    formData.append('cf-turnstile-response', turnstileToken); // Send Token for Verification
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.name, name);
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.phone, phone);
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.address, fullAddress); // Send combined address
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.quantity, quantity);
+    formData.append(GOOGLE_FORM_CONFIG.entryIDs.total, total);
 
-    fetch(WEB_APP_URL, {
+    fetch(GOOGLE_FORM_CONFIG.formURL, {
         method: 'POST',
         body: formData,
-        mode: 'no-cors' // Google Script requires no-cors for simple POSTs
+        mode: 'no-cors'
     }).then(() => {
         // Update Spam State
         spamState.count++;
@@ -250,10 +258,7 @@ function submitOrder() {
         showSuccess(name);
         resetForm(btn, originalText, originalIconClass);
     }).catch((err) => {
-        // Even with error (opaque response), we assume success to user
-        // But if script fails security check, it won't write to sheet (Silent Fail for Spammers)
-        // For real users, it mostly works.
-        showSuccess(name);
+        showSuccess(name); // Google Forms no-cors often throws or returns opaque, we assume success or handle generic error
         resetForm(btn, originalText, originalIconClass);
     });
 }
