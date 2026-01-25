@@ -425,64 +425,78 @@ function toggleChat() {
     isChatOpen = !isChatOpen;
 
     if (isChatOpen) {
-        // === SMART POSITIONING LOGIC (STRICT PROXIMITY) ===
-        const btnRect = launcherBtn.getBoundingClientRect();
-        const winRect = { width: 300, height: 450 }; // Updated size
+        // === SMART POSITIONING LOGIC ===
         const screenW = window.innerWidth;
-        const screenH = window.innerHeight;
-        const gap = 2; // Very close
 
-        // Reset all positioning styles first
+        // Reset common styles
         chatWindow.style.top = 'auto';
         chatWindow.style.bottom = 'auto';
         chatWindow.style.left = 'auto';
         chatWindow.style.right = 'auto';
 
-        let originY = 'bottom';
-        let originX = 'right';
-
-        // 1. HORIZONTAL: Left vs Right
-        // If button is in the right half of screen -> Show Window on LEFT
-        if (btnRect.left > screenW / 2) {
-            chatWindow.style.right = (screenW - btnRect.left + gap) + 'px';
-            chatWindow.style.left = 'auto'; // Clear left
-            originX = 'right';
+        if (screenW <= 768) {
+            // === MOBILE: CENTER ON SCREEN ===
+            chatWindow.style.top = '0';
+            chatWindow.style.bottom = '0';
+            chatWindow.style.left = '0';
+            chatWindow.style.right = '0';
+            chatWindow.style.margin = 'auto';
+            chatWindow.style.transformOrigin = 'center';
         } else {
-            // Button is in left half -> Show Window on RIGHT
-            chatWindow.style.left = (btnRect.right + gap) + 'px';
-            chatWindow.style.right = 'auto'; // Clear right
-            originX = 'left';
+            // === DESKTOP: NEAR BUTTON (STRICT PROXIMITY) ===
+            chatWindow.style.margin = '0'; // Reset margin
+
+            const btnRect = launcherBtn.getBoundingClientRect();
+            const winRect = { width: 300, height: 450 }; // Updated size
+            const screenH = window.innerHeight;
+            const gap = 2; // Very close
+
+            let originY = 'bottom';
+            let originX = 'right';
+
+            // 1. HORIZONTAL: Left vs Right
+            // If button is in the right half of screen -> Show Window on LEFT
+            if (btnRect.left > screenW / 2) {
+                chatWindow.style.right = (screenW - btnRect.left + gap) + 'px';
+                chatWindow.style.left = 'auto'; // Clear left
+                originX = 'right';
+            } else {
+                // Button is in left half -> Show Window on RIGHT
+                chatWindow.style.left = (btnRect.right + gap) + 'px';
+                chatWindow.style.right = 'auto'; // Clear right
+                originX = 'left';
+            }
+
+            // 2. VERTICAL ALIGNMENT (LOWERING IT)
+            // Instead of sitting "above", let's align the BOTTOM of the window with the BOTTOM of the icon
+            // so they sit on the same baseline.
+
+            // Calculate distance from bottom of screen to bottom of button
+            const bottomDist = screenH - btnRect.bottom;
+
+            // Check if window fits upwards from this baseline
+            if (winRect.height < btnRect.bottom) {
+                // Fits fine, align bottoms
+                chatWindow.style.bottom = bottomDist + 'px';
+                chatWindow.style.top = 'auto';
+                originY = 'bottom';
+            } else {
+                // Window too tall, must align Top or push up
+                chatWindow.style.top = gap + 'px';
+                chatWindow.style.bottom = 'auto';
+                originY = 'top';
+            }
+
+            // Special case: If user drags to Top edge, we still need to open "Below"
+            // Override if button is very high up (top < 100px)
+            if (btnRect.top < 100) {
+                chatWindow.style.top = (btnRect.bottom + gap) + 'px';
+                chatWindow.style.bottom = 'auto';
+                originY = 'top';
+            }
+
+            chatWindow.style.transformOrigin = `${originY} ${originX}`;
         }
-
-        // 2. VERTICAL ALIGNMENT (LOWERING IT)
-        // Instead of sitting "above", let's align the BOTTOM of the window with the BOTTOM of the icon
-        // so they sit on the same baseline.
-
-        // Calculate distance from bottom of screen to bottom of button
-        const bottomDist = screenH - btnRect.bottom;
-
-        // Check if window fits upwards from this baseline
-        if (winRect.height < btnRect.bottom) {
-            // Fits fine, align bottoms
-            chatWindow.style.bottom = bottomDist + 'px';
-            chatWindow.style.top = 'auto';
-            originY = 'bottom';
-        } else {
-            // Window too tall, must align Top or push up
-            chatWindow.style.top = gap + 'px';
-            chatWindow.style.bottom = 'auto';
-            originY = 'top';
-        }
-
-        // Special case: If user drags to Top edge, we still need to open "Below"
-        // Override if button is very high up (top < 100px)
-        if (btnRect.top < 100) {
-            chatWindow.style.top = (btnRect.bottom + gap) + 'px';
-            chatWindow.style.bottom = 'auto';
-            originY = 'top';
-        }
-
-        chatWindow.style.transformOrigin = `${originY} ${originX}`;
 
         chatWindow.classList.remove('scale-0');
         chatWindow.classList.add('scale-100');
