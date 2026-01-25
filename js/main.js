@@ -427,10 +427,10 @@ function toggleChat() {
     if (isChatOpen) {
         // === SMART POSITIONING LOGIC (STRICT PROXIMITY) ===
         const btnRect = launcherBtn.getBoundingClientRect();
-        const winRect = { width: 350, height: 500 };
+        const winRect = { width: 300, height: 450 }; // Updated size
         const screenW = window.innerWidth;
         const screenH = window.innerHeight;
-        const gap = 5;
+        const gap = 2; // Very close
 
         // Reset all positioning styles first
         chatWindow.style.top = 'auto';
@@ -454,18 +454,31 @@ function toggleChat() {
             originX = 'left';
         }
 
-        // 2. VERTICAL: Top vs Bottom
-        // If button is in the bottom half of screen -> Show Window ABOVE
-        // (Check if enough space above, otherwise force below?) 
-        // User asked: "Top -> Below", "Bottom -> Above"
-        if (btnRect.top > screenH / 2) {
-            chatWindow.style.bottom = (screenH - btnRect.top + gap) + 'px';
-            chatWindow.style.top = 'auto'; // Clear top
+        // 2. VERTICAL ALIGNMENT (LOWERING IT)
+        // Instead of sitting "above", let's align the BOTTOM of the window with the BOTTOM of the icon
+        // so they sit on the same baseline.
+
+        // Calculate distance from bottom of screen to bottom of button
+        const bottomDist = screenH - btnRect.bottom;
+
+        // Check if window fits upwards from this baseline
+        if (winRect.height < btnRect.bottom) {
+            // Fits fine, align bottoms
+            chatWindow.style.bottom = bottomDist + 'px';
+            chatWindow.style.top = 'auto';
             originY = 'bottom';
         } else {
-            // Button is in top half -> Show Window BELOW
+            // Window too tall, must align Top or push up
+            chatWindow.style.top = gap + 'px';
+            chatWindow.style.bottom = 'auto';
+            originY = 'top';
+        }
+
+        // Special case: If user drags to Top edge, we still need to open "Below"
+        // Override if button is very high up (top < 100px)
+        if (btnRect.top < 100) {
             chatWindow.style.top = (btnRect.bottom + gap) + 'px';
-            chatWindow.style.bottom = 'auto'; // Clear bottom
+            chatWindow.style.bottom = 'auto';
             originY = 'top';
         }
 
