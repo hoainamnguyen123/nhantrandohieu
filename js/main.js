@@ -539,6 +539,7 @@ async function callGeminiAPI(userMessage) {
     THÔNG TIN CỐT LÕI:
     - Sản phẩm: Nhân trần khô tự nhiên vùng núi Tân Lạc, Hòa Bình.
     - Công dụng: Thanh nhiệt, mát gan, ngủ ngon, tốt cho phụ nữ sau sinh.
+    - ĐẶC BIỆT: Nhân trần đã được rửa sạch và sấy khô kỹ lưỡng, khách hàng KHÔNG CẦN RỬA LẠI trước khi hãm/đun. Đảm bảo vệ sinh an toàn thực phẩm.
     - Giá bán: 25.000đ/gói (100g).
     - Ưu đãi: Mua 10 giảm 10k, Mua 20 giảm 20k, Ship COD toàn quốc.
 
