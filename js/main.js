@@ -338,3 +338,93 @@ if (backToTopBtn) {
         }
     });
 }
+// === 5. AI CHATBOT (GEMINI) ===
+// === 5. AI CHATBOT (GEMINI) ===
+const GEMINI_API_KEY = "AIzaSyC056Eh2UeMF3nLdJYr-XtLxw-IibCy9nQ"; // Dán Key mới của bạn vào đây
+const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=";
+let isChatOpen = false;
+
+function toggleChat() {
+    const chatWindow = document.getElementById('chatWindow');
+    isChatOpen = !isChatOpen;
+    if (isChatOpen) {
+        chatWindow.classList.remove('scale-0');
+        chatWindow.classList.add('scale-100');
+        setTimeout(() => document.getElementById('chatInput').focus(), 300);
+    } else {
+        chatWindow.classList.remove('scale-100');
+        chatWindow.classList.add('scale-0');
+    }
+}
+
+function handleChatInput(e) {
+    if (e.key === 'Enter') sendMessage();
+}
+
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    if (!message) return;
+
+    addMessageToUI(message, 'user');
+    input.value = '';
+
+    const loadingId = addMessageToUI("...", 'ai', true);
+
+    try {
+        const reply = await callGeminiAPI(message);
+        removeMessage(loadingId);
+        addMessageToUI(reply, 'ai');
+    } catch (err) {
+        removeMessage(loadingId);
+        console.error("Lỗi:", err);
+        addMessageToUI("Lỗi: " + err.message, 'ai');
+    }
+}
+
+async function callGeminiAPI(userMessage) {
+    const payload = {
+        contents: [{
+            parts: [{ text: `Bạn là trợ lý shop Nhân Trần Đỗ Hiếu. Khách hỏi: ${userMessage}` }]
+        }]
+    };
+
+    const response = await fetch(API_URL + GEMINI_API_KEY, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    // Kiểm tra lỗi ngay lập tức
+    if (data.error) {
+        console.error("LỖI TỪ GOOGLE:", data.error);
+        return "Lỗi: " + data.error.message;
+    }
+
+    return data.candidates[0].content.parts[0].text;
+}
+
+function addMessageToUI(text, sender, isLoading = false) {
+    const chatMessages = document.getElementById('chatMessages');
+    const msgId = 'msg-' + Date.now();
+    const isUser = sender === 'user';
+    const align = isUser ? 'justify-end' : 'justify-start';
+    const bg = isUser ? 'bg-brand-green text-white' : 'bg-gray-100 text-gray-800';
+
+    const html = `
+        <div id="${msgId}" class="flex ${align} mb-3 ${isLoading ? 'animate-pulse' : ''}">
+            <div class="p-3 rounded-lg text-sm max-w-[80%] ${bg} shadow-sm">
+                ${text}
+            </div>
+        </div>`;
+    chatMessages.insertAdjacentHTML('beforeend', html);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return msgId;
+}
+
+function removeMessage(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+}
