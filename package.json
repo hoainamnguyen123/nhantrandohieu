@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Website Nhân Trần Đỗ Hiếu",
     "scripts": {
-        "build": "node generate_config.js"
+        "build": "node build.js"
     },
     "keywords": [],
     "author": "",
