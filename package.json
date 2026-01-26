@@ -1,0 +1,11 @@
+{
+  "name": "webnhantran",
+  "version": "1.0.0",
+  "description": "Website Nhân Trần Đỗ Hiếu",
+  "scripts": {
+    "build": "node generate_config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

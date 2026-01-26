@@ -1,5 +1,5 @@
 // === 5. AI CHATBOT (GEMINI) ===
-const GEMINI_API_KEY = "AIzaSyC7rq4o8yU2R1G6cYL9cmGE38CzTaak4u8";
+const GEMINI_API_KEY = typeof CONFIG !== 'undefined' ? CONFIG.GEMINI_API_KEY : '';
 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
 let isChatOpen = false;
 
