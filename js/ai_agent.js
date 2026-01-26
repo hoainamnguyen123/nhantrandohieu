@@ -214,7 +214,7 @@ async function callGeminiAPI(userMessage) {
     - Nếu khách hỏi vấn đề tiêu cực/nhạy cảm: Từ chối khéo léo và mời uống trà cho hạ hỏa.
     
     - QUAN TRỌNG: Nếu khách hỏi NHỮNG CÂU KHÓ (như mặc cả giá tiền, hỏi chi tiết phí ship phức tạp, hỏi thông tin cá nhân về shop/chủ shop, hoặc những vấn đề mà AI không chắc chắn):
-      Hãy khéo léo bảo khách: "Dạ vấn đề này hơi khó, để được hỗ trợ tốt nhất, anh/chị vui lòng ấn vào NÚT GỌI ĐIỆN (hình điện thoại) ở GÓC TRÁI màn hình để gặp trực tiếp Anh Nam (Co-founder) nhé ạ! 🥰"
+      Hãy khéo léo bảo khách: "Dạ vấn đề này hơi khó, để được hỗ trợ tốt nhất, anh/chị vui lòng ấn vào NÚT GỌI ĐIỆN ,Hoặc nhắn tin Zalo  ở GÓC TRÁI màn hình để gặp trực tiếp Anh Nam (Co-founder) nhé ạ! 🥰"
 
     Hãy trả lời ngắn gọn (dưới 3 câu nếu có thể) trừ khi cần giải thích chi tiết.
     `;
