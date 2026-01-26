@@ -252,11 +252,27 @@ function addMessageToUI(text, sender, isLoading = false) {
     const align = isUser ? 'justify-end' : 'justify-start';
     const bg = isUser ? 'bg-brand-green text-white' : 'bg-gray-100 text-gray-800';
 
-    const html = `
-        <div id="${msgId}" class="flex ${align} mb-3 ${isLoading ? 'animate-pulse' : ''}">
+    let contentHtml = '';
+
+    if (isUser) {
+        contentHtml = `
             <div class="p-3 rounded-lg text-sm max-w-[80%] ${bg} shadow-sm">
                 ${text}
+            </div>`;
+    } else {
+        // AI Message with Avatar
+        contentHtml = `
+            <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-200 shadow-sm flex-shrink-0 mt-1 mr-2">
+                <img src="img/chatbot_avatar.png" alt="AI" class="w-full h-full object-cover">
             </div>
+            <div class="p-3 rounded-2xl rounded-tl-none text-sm max-w-[80%] ${bg} shadow-sm border border-gray-100">
+                ${text}
+            </div>`;
+    }
+
+    const html = `
+        <div id="${msgId}" class="flex ${align} mb-3 ${isLoading ? 'animate-pulse' : ''} items-start">
+            ${contentHtml}
         </div>`;
     chatMessages.insertAdjacentHTML('beforeend', html);
     chatMessages.scrollTop = chatMessages.scrollHeight;
