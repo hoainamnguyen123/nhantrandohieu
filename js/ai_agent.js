@@ -159,7 +159,7 @@ function toggleChat() {
 
         chatWindow.classList.remove('scale-0');
         chatWindow.classList.add('scale-100');
-        setTimeout(() => document.getElementById('chatInput').focus(), 300);
+        // setTimeout(() => document.getElementById('chatInput').focus(), 300); // Disabled auto-focus per user request
     } else {
         chatWindow.classList.remove('scale-100');
         chatWindow.classList.add('scale-0');
