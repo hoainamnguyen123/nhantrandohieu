@@ -187,7 +187,7 @@ async function sendMessage() {
     } catch (err) {
         removeMessage(loadingId);
         console.error("Lỗi:", err);
-        addMessageToUI("Xin lỗi, hệ thống đang bận. Vui lòng thử lại sau. (Lỗi: " + err.message + ")", 'ai');
+        addMessageToUI("Xin lỗi quý khách, hệ thống đang bận. Quý khách vui lòng thử lại sau giây lát ạ! 🥰", 'ai');
     }
 }
 
@@ -201,6 +201,7 @@ async function callGeminiAPI(userMessage) {
     - ĐẶC BIỆT: Nhân trần đã được rửa sạch và sấy khô kỹ lưỡng, khách hàng KHÔNG CẦN RỬA LẠI trước khi hãm/đun.
     - Giá bán: 25.000đ/gói (100g).
     - Ưu đãi: Mua 10 gói giảm 10k, Mua 20 gói giảm 20k.
+    - Địa chỉ: xã Phong Phú, Huyện Tân Lạc, Tỉnh Hòa Bình.
     - Vận chuyển: Ship COD toàn quốc (Viettel Post/GHTK). Phí ship trung bình 25k-35k (tùy khu vực). Thời gian giao 2-4 ngày.
 
     PHONG CÁCH TRẢ LỜI:
@@ -225,6 +226,10 @@ async function callGeminiAPI(userMessage) {
     KHI CẦN GỌI ANH NAM (Chỉ dùng cho các trường hợp đặc biệt trên):
     "Dạ vấn đề này hơi khó, để được hỗ trợ tốt nhất, anh/chị vui lòng ấn vào NÚT GỌI ĐIỆN, Hoặc nhắn tin Zalo ở GÓC TRÁI màn hình để gặp trực tiếp Anh Nam (Co-founder) nhé ạ! 🥰"
 
+    4. Về Đặt Hàng Số Lượng Cụ Thể (Quan trọng):
+       - Nếu khách nói muốn mua số lượng cụ thể (ví dụ: "cho 1 gói", "lấy 2 gói", "đặt 5 gói", ...), hãy hướng dẫn khách:
+       "Dạ vâng, để đặt hàng nhanh nhất, anh/chị vui lòng điền thông tin vào PHẦN ĐẶT HÀNG ở bên dưới hoặc ấn nút ĐẶT HÀNG NGAY để bên em lên đơn cho mình nhé ạ! 🥰"
+
     Hãy trả lời ngắn gọn (dưới 3 câu nếu có thể).
     `;
 
@@ -244,7 +249,7 @@ async function callGeminiAPI(userMessage) {
 
     if (data.error) {
         console.error("LỖI TỪ GOOGLE:", data.error);
-        return "Lỗi từ Google: " + data.error.message;
+        return "Xin lỗi quý khách, hệ thống đang bận. Quý khách vui lòng thử lại sau giây lát ạ! 🥰";
     }
 
     if (!data.candidates || data.candidates.length === 0) {

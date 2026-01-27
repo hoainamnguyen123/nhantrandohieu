@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nhân Trần Đỗ Hiếu | Tinh Hoa Thảo Mộc Hòa Bình</title>
+    <link rel="icon" type="image/png" href="img/leaf_favicon.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -308,77 +309,130 @@
         </div>
     </section>
 
-    <!-- FAQ SECTION (NEW) -->
-    <section id="faq" class="py-16 md:py-24 bg-brand-light relative">
+
+
+    <!-- PRODUCTION PROCESS SECTION -->
+    <section id="process" class="py-16 md:py-24 bg-white relative">
         <div class="container mx-auto px-4 md:px-6">
             <div class="text-center mb-10 md:mb-16">
-                <span class="text-brand-green font-bold tracking-widest uppercase text-xs mb-2 block"
-                    data-key="faq_subtitle">Thắc Mắc Thường Gặp</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-brand-dark font-bold" data-key="faq_title">Giải Đáp
-                    Thông Tin</h2>
+                <span class="text-brand-green font-bold tracking-widest uppercase text-xs mb-2 block">Quy Trình</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-dark font-bold">Tinh Hoa <span
+                        class="text-brand-gold">Chế Biến</span></h2>
             </div>
-            <div class="max-w-3xl mx-auto space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
-                        onclick="toggleFAQ(this)">
-                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q1">Nhân trần có tác
-                            dụng phụ không?</span>
-                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
-                            data-key="faq_a1">
-                            Nhân trần là thảo mộc lành tính, tuy nhiên phụ nữ mang thai hoặc người có tỳ vị hư hàn nên
-                            tham khảo ý kiến bác sĩ trước khi dùng thường xuyên.
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gray-100 -z-10"></div>
+
+                <!-- Step 1 -->
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-brand-light rounded-full flex items-center justify-center mb-4 border-2 border-white shadow-lg group-hover:border-brand-gold transition-colors duration-300 relative z-10">
+                        <i
+                            class="fas fa-seedling text-2xl text-brand-green group-hover:text-brand-gold transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark mb-2">1. Tuyển Chọn</h4>
+                    <p class="text-xs md:text-sm text-gray-500 font-light">Thu hái từ vùng núi cao Hòa Bình.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-brand-light rounded-full flex items-center justify-center mb-4 border-2 border-white shadow-lg group-hover:border-brand-gold transition-colors duration-300 relative z-10">
+                        <i
+                            class="fas fa-water text-2xl text-brand-green group-hover:text-brand-gold transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark mb-2">2. Sơ Chế</h4>
+                    <p class="text-xs md:text-sm text-gray-500 font-light">Rửa sạch tạp chất bằng nước nguồn.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-brand-light rounded-full flex items-center justify-center mb-4 border-2 border-white shadow-lg group-hover:border-brand-gold transition-colors duration-300 relative z-10">
+                        <i
+                            class="fas fa-fire text-2xl text-brand-green group-hover:text-brand-gold transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark mb-2">3. Sao Sấy</h4>
+                    <p class="text-xs md:text-sm text-gray-500 font-light">Sao khô thủ công giữ hương vị.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-brand-light rounded-full flex items-center justify-center mb-4 border-2 border-white shadow-lg group-hover:border-brand-gold transition-colors duration-300 relative z-10">
+                        <i
+                            class="fas fa-box-open text-2xl text-brand-green group-hover:text-brand-gold transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark mb-2">4. Đóng Gói</h4>
+                    <p class="text-xs md:text-sm text-gray-500 font-light">Kết hợp thảo mộc tự nhiên & đóng gói kín.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BREWING GUIDE SECTION -->
+    <section id="guide" class="py-16 md:py-24 bg-brand-dark text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+        </div>
+
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                <div class="w-full md:w-1/2">
+                    <span class="text-brand-gold font-bold tracking-widest uppercase text-xs mb-2 block">Nghệ Thuật Pha
+                        Trà</span>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">Trọn Vẹn <br>Hương Vị Tự Nhiên</h2>
+                    <p class="text-gray-400 font-light mb-8 text-sm md:text-base leading-relaxed">
+                        Để có một ly nhân trần thơm ngon, chuẩn vị, hãy thực hiện theo 3 bước đơn giản dưới đây. Bạn có
+                        thể uống nóng để ấm bụng hoặc thêm đá để giải nhiệt mùa hè.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Step 1 -->
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full border border-brand-gold/30 flex items-center justify-center flex-shrink-0 text-brand-gold font-serif font-bold text-xl">
+                                1</div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Chuẩn Bị</h4>
+                                <p class="text-sm text-gray-400">Lấy khoảng 20-30g nhân trần khô (1 nắm nhỏ) rửa qua với
+                                    nước sạch.</p>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full border border-brand-gold/30 flex items-center justify-center flex-shrink-0 text-brand-gold font-serif font-bold text-xl">
+                                2</div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Hãm Trà</h4>
+                                <p class="text-sm text-gray-400">Hãm với 1-1.5 lít nước sôi (90-100 độ C) trong bình giữ
+                                    nhiệt hoặc ấm tích khoảng 10-15 phút.</p>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full border border-brand-gold/30 flex items-center justify-center flex-shrink-0 text-brand-gold font-serif font-bold text-xl">
+                                3</div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Thưởng Thức</h4>
+                                <p class="text-sm text-gray-400">Rót ra ly và thưởng thức ngay vị ngọt mát tự nhiên.
+                                    Ngon hơn khi uống lạnh.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- FAQ Item 2 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
-                        onclick="toggleFAQ(this)">
-                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q2">Cách pha nhân trần
-                            ngon nhất?</span>
-                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
-                            data-key="faq_a2">
-                            Rửa sạch nhân trần, hãm với nước sôi 90-100 độ C trong khoảng 10-15 phút. Có thể uống nóng
-                            hoặc thêm đá tùy khẩu vị.
-                        </div>
+
+                <div class="w-full md:w-1/2 relative">
+                    <div
+                        class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/5 mx-auto max-w-sm">
+                        <img src="img/herbal_tea_brewing.png" alt="Brewing Tea" class="w-full h-auto">
                     </div>
-                </div>
-                <!-- FAQ Item 3 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
-                        onclick="toggleFAQ(this)">
-                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q3">Thời hạn bảo quản
-                            là bao lâu?</span>
-                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
-                            data-key="faq_a3">
-                            Sản phẩm được sấy khô tự nhiên, bảo quản nơi khô ráo, thoáng mát có thể dùng tốt trong vòng
-                            6-12 tháng.
-                        </div>
-                    </div>
-                </div>
-                <!-- FAQ Item 4 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
-                        onclick="toggleFAQ(this)">
-                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q4">Ship hàng toàn quốc
-                            không?</span>
-                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
-                            data-key="faq_a4">
-                            Có, chúng tôi ship COD toàn quốc. Thời gian giao hàng từ 2-4 ngày tùy khu vực.
-                        </div>
+                    <!-- Decorative Circle -->
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-brand-gold/20 rounded-full -z-0 animate-spin-slow">
                     </div>
                 </div>
             </div>
@@ -628,6 +682,83 @@
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3731.439815024342!2d105.2257996153723!3d20.624068586221464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31340f1dce532d0b%3A0xb61fc4224882daed!2zTmjDom4gVHLhuqduIELDoCBIaeG6v3U!5e0!3m2!1svi!2s!4v1700000000000!5m2!1svi!2s"
                     width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
                 </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION (MOVED TO BOTTOM) -->
+    <section id="faq" class="py-16 md:py-24 bg-brand-light relative">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16">
+                <span class="text-brand-green font-bold tracking-widest uppercase text-xs mb-2 block"
+                    data-key="faq_subtitle">Thắc Mắc Thường Gặp</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-dark font-bold" data-key="faq_title">Giải Đáp
+                    Thông Tin</h2>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q1">Nhân trần có tác
+                            dụng phụ không?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a1">
+                            Nhân trần là thảo mộc lành tính, tuy nhiên phụ nữ mang thai hoặc người có tỳ vị hư hàn nên
+                            tham khảo ý kiến bác sĩ trước khi dùng thường xuyên.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q2">Cách pha nhân trần
+                            ngon nhất?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a2">
+                            Rửa sạch nhân trần, hãm với nước sôi 90-100 độ C trong khoảng 10-15 phút. Có thể uống nóng
+                            hoặc thêm đá tùy khẩu vị.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q3">Thời hạn bảo quản
+                            là bao lâu?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a3">
+                            Sản phẩm được sấy khô tự nhiên, bảo quản nơi khô ráo, thoáng mát có thể dùng tốt trong vòng
+                            6-12 tháng.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                        onclick="toggleFAQ(this)">
+                        <span class="font-serif font-bold text-brand-dark text-lg" data-key="faq_q4">Ship hàng toàn quốc
+                            không?</span>
+                        <i class="fas fa-plus text-brand-gold transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100"
+                            data-key="faq_a4">
+                            Có, chúng tôi ship COD toàn quốc. Thời gian giao hàng từ 2-4 ngày tùy khu vực.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
