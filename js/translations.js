@@ -33,7 +33,18 @@ const translations = {
         faq_q4: "Ship hàng toàn quốc không?", faq_a4: "Có, chúng tôi ship COD toàn quốc. Thời gian giao hàng từ 2-4 ngày tùy khu vực.",
         alert_spam: "Hệ thống phát hiện spam. Vui lòng thử lại sau.",
         alert_rate_limit: "Bạn gửi đơn quá nhanh. Vui lòng đợi 5 phút trước khi đặt tiếp.",
-        alert_captcha: "Vui lòng xác thực bạn không phải là Robot!"
+        alert_captcha: "Vui lòng xác thực bạn không phải là Robot!",
+        process_subtitle: "Quy Trình", process_title_1: "Tinh Hoa", process_title_2: "Chế Biến",
+        process_1_title: "1. Tuyển Chọn", process_1_desc: "Thu hái từ vùng núi cao Hòa Bình.",
+        process_2_title: "2. Sơ Chế", process_2_desc: "Rửa sạch tạp chất bằng nước nguồn.",
+        process_3_title: "3. Sao Sấy", process_3_desc: "Sao khô thủ công giữ hương vị.",
+        process_4_title: "4. Đóng Gói", process_4_desc: "Kết hợp thảo mộc tự nhiên & đóng gói kín.",
+        guide_subtitle: "Nghệ Thuật Pha Trà", guide_title_1: "Trọn Vẹn", guide_title_2: "Hương Vị Tự Nhiên",
+        guide_desc: "Để có một ly nhân trần thơm ngon, chuẩn vị, hãy thực hiện theo 3 bước đơn giản dưới đây. Bạn có thể uống nóng để ấm bụng hoặc thêm đá để giải nhiệt mùa hè.",
+        guide_1_title: "Chuẩn Bị", guide_1_desc: "Lấy khoảng 20-30g nhân trần khô (1 nắm nhỏ) rửa qua với nước sạch.",
+        guide_2_title: "Hãm Trà", guide_2_desc: "Hãm với 1-1.5 lít nước sôi (90-100 độ C) trong bình giữ nhiệt hoặc ấm tích khoảng 10-15 phút.",
+        guide_3_title: "Thưởng Thức", guide_3_desc: "Rót ra ly và thưởng thức ngay vị ngọt mát tự nhiên. Ngon hơn khi uống lạnh.",
+        img_disclaimer: "(* Hình ảnh chỉ mang tính chất minh họa cho sản phẩm)"
     },
     en: {
         menu_about: "About", menu_benefits: "Benefits", menu_reviews: "Reviews", menu_order: "Order", menu_location: "Location", menu_order_now: "Order Now",
@@ -69,6 +80,17 @@ const translations = {
         faq_q4: "Nationwide shipping?", faq_a4: "Yes, we ship COD nationwide. Delivery time is 2-4 days depending on the area.",
         alert_spam: "System detected spam. Please try again later.",
         alert_rate_limit: "You are sending too fast. Please wait 5 minutes.",
-        alert_captcha: "Please verify that you are not a Robot!"
+        alert_captcha: "Please verify that you are not a Robot!",
+        process_subtitle: "Our Process", process_title_1: "ESSENCE OF", process_title_2: "Processing",
+        process_1_title: "1. Selection", process_1_desc: "Harvested from Hoa Binh high mountains.",
+        process_2_title: "2. Cleaning", process_2_desc: "Washed clean with natural spring water.",
+        process_3_title: "3. Roasting", process_3_desc: "Hand-roasted to preserve flavor.",
+        process_4_title: "4. Packing", process_4_desc: "Combined with natural herbs & sealed tight.",
+        guide_subtitle: "The Art of Brewing", guide_title_1: "Perfect", guide_title_2: "Natural Flavor",
+        guide_desc: "To have a delicious, standard cup of herbal tea, follow these 3 simple steps below. You can drink it hot to warm your stomach or add ice to cool down in summer.",
+        guide_1_title: "Prepare", guide_1_desc: "Take about 20-30g of dry herbal tea (1 small handful) and rinse with clean water.",
+        guide_2_title: "Brewing", guide_2_desc: "Brew with 1-1.5 liters of boiling water (90-100°C) in a thermos or tea pot for 10-15 minutes.",
+        guide_3_title: "Enjoy", guide_3_desc: "Pour into a glass and enjoy the natural sweet taste immediately. Tastes better when cold.",
+        img_disclaimer: "(* Image is for illustration purposes only)"
     }
 };
